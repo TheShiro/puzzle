@@ -48,4 +48,8 @@ public class ObjectBase : MonoBehaviour {
 	protected void CreateObject() {
 		_object = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
 	}
+
+
+
+	
 }
