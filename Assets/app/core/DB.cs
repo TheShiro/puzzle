@@ -38,20 +38,18 @@ namespace DB {
 		public static void Query() {
 			SetConnection();
 
-			/*_command = new SqliteCommand(query, _connect);
-			_reader = _command.ExecuteReader();*/
-
-			//_query = query;
+			_command = new SqliteCommand(_query, _connect);
+			_reader = _command.ExecuteReader();
 		}
 
 		public static void Select(string[] s) {
-			_query = "select ";
+			_query = "select";
 
 			foreach(string select in s) {
-				_query += select + ", ";
+				_query += " " + select + ",";
 			}
 
-			_query = _query.Remove(_query.Length - 2);
+			_query = _query.Remove(_query.Length - 1);
 			_query += " ";
 		}
 
@@ -76,8 +74,22 @@ namespace DB {
 			_query = _query.Remove(_query.Length - 1);
 		}
 
+		public static void Order(string order) {
+			_query += " order by " + order + " ";
+		}
+
+		public static void Group(string group) {
+			_query += " group by " + group + " ";
+		}
+
+		public static void Limit(string limit) {
+			_query += " limit " + limit;
+		}
+
 		public static void One() {
 			SetConnection();
+
+			Query();
 
 			_result = new string[1];
 
@@ -86,6 +98,8 @@ namespace DB {
 
 		public static void All() {
 			SetConnection();
+
+			Query();
 
 			Debug.Log(_query);
 
