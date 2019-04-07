@@ -8,7 +8,16 @@ namespace Services {
 	public class PuzzleService : MonoBehaviour {
 
 		public static void GeneratorPuzzles(int x, int y) {
-			PuzzleObject puzzle = new PuzzleObject("puzzle", new Vector3(0,0,0));
+			//horizontal
+			for(int i = 0; i < x; i++) {
+				//vertical
+				for(int j = 0; j < y; j++) {
+					//formula getting id of puzzle
+					int id = j + x * i + 1;
+					PuzzleObject puzzle = new PuzzleObject("puzzle", new Vector3(i,j,0), id);
+					//print("puzzle " + puzzle.GetID());
+				}
+			}
 		}
 	}
 

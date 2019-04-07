@@ -7,10 +7,6 @@ using Services;
 public class StartPuzzle : MonoBehaviour {
 
 	void Start () {
-		PuzzleService.GeneratorPuzzles(1, 1);
-		//PuzzleObject puzzle = new PuzzleObject("puzzle", new Vector3(0,0,0));
-
-		//puzzle.Passport();
-		//puzzle.GetObject();
+		PuzzleService.GeneratorPuzzles(2, 2);
 	}
 }

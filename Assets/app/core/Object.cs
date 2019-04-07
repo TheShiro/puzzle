@@ -9,53 +9,62 @@ public class ObjectCore : MonoBehaviour {
 	//protected GameObject prefab;
 	protected GameObject _object;
 
-	//constructor
-	public ObjectCore(string nameObject) {
+	//initialization
+	public void ObjectInit(string nameObject) {
 		//_object = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
 		_object = Instantiate(Resources.Load(nameObject)) as GameObject;
+		TransformInit();
 	}
 
 	private void TransformInit() {
-		_transfrorm = gameObject.transform;
+		_transfrorm = _object.transform;
 	}
 
-	public Vector3 GetTranform() {
+	protected Vector3 GetTranform() {
 		return _transfrorm.position;
 	}
 
 	/* SetTransform start */
-	public void SetTransform(float x) {
+	protected void SetTransform(float x) {
 		_transfrorm.position = new Vector3(x, _transfrorm.position.y, _transfrorm.position.z);
 	}
 
-	public void SetTransform(float x, float y) {
+	protected void SetTransform(float x, float y) {
 		_transfrorm.position = new Vector3(x, y, _transfrorm.position.z);
 	}
 
-	public void SetTransform(float x, float y, float z) {
+	protected void SetTransform(float x, float y, float z) {
 		_transfrorm.position = new Vector3(x, y, z);
 	}
 
-	public void SetTransform(Vector3 pos) {
-		_transfrorm.position = new Vector3(pos.x, pos.y, pos.z);
+	protected void SetTransform(Vector3 pos) {
+		_transfrorm.position = pos;
 	}
 	/* SetTransform end */
 
 	/* AddTransform start */
-	public void AddTransform(float x) {
+	protected void AddTransform(float x) {
 		_transfrorm.position = new Vector3(_transfrorm.position.x + x, _transfrorm.position.y, _transfrorm.position.z);
 	}
 
-	public void AddTransform(float x, float y) {
+	protected void AddTransform(float x, float y) {
 		_transfrorm.position = new Vector3(_transfrorm.position.x + x, _transfrorm.position.y + y, _transfrorm.position.z);
 	}
 
-	public void AddTransform(float x, float y, float z) {
+	protected void AddTransform(float x, float y, float z) {
 		_transfrorm.position = new Vector3(_transfrorm.position.x + x, _transfrorm.position.y + y, _transfrorm.position.z + z);
 	}
 	/* AddTransform end */
 
-	public void Passport() {
+	protected void SetName(string name) {
+		_object.name = name;
+	}
+
+
+
+
+
+	protected void Passport() {
 		print("class ObjectBase");
 	}
 }
