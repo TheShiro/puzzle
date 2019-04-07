@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Models;
 
 namespace Modules {
 
@@ -18,7 +19,7 @@ namespace Modules {
 
 		//constructor
 		public PuzzleObject(string nameObject, Vector3 position, int id) {
-			ObjectInit(nameObject);
+			ObjectInit("Prefabs/" + nameObject);
 			SetTransform(position);
 			SetID(id);
 			SetName("puzzle" + id);
@@ -40,13 +41,10 @@ namespace Modules {
 			return this.id;
 		}
 
-		public void SetMaterial(Texture main) {
-			MeshRenderer mesh = _object.GetComponent<MeshRenderer>();
-
-			mesh.materials[0].SetTexture("_MainTex", main);
+		public void SetMaterial(Texture main, Texture alpha) {
+			this.SetMaterial("_MainTex", main);
+			this.SetMaterial("_Alpha", alpha);
 		}
-
-
 	}
 
 }

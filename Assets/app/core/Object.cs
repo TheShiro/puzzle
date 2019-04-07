@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectCore : MonoBehaviour {
 
 	private Transform _transfrorm;
+	private MeshRenderer _mesh;
 
 	//protected GameObject prefab;
 	protected GameObject _object;
@@ -14,10 +15,15 @@ public class ObjectCore : MonoBehaviour {
 		//_object = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
 		_object = Instantiate(Resources.Load(nameObject)) as GameObject;
 		TransformInit();
+		MaterialInit();
 	}
 
 	private void TransformInit() {
 		_transfrorm = _object.transform;
+	}
+
+	private void MaterialInit() {
+		_mesh = _object.GetComponent<MeshRenderer>();
 	}
 
 	protected Vector3 GetTranform() {
@@ -60,7 +66,9 @@ public class ObjectCore : MonoBehaviour {
 		_object.name = name;
 	}
 
-
+	protected void SetMaterial(string channel, Texture tex) {
+		_mesh.materials[0].SetTexture(channel, tex);
+	}
 
 
 

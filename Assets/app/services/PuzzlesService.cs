@@ -5,9 +5,7 @@ using Modules;
 
 namespace Services {
 
-	public class PuzzlesService : MonoBehaviour {
-
-		public static Texture puzzleTexture;
+	public static class PuzzlesService {
 
 		public static List<PuzzleObject> puzzleList = new List<PuzzleObject>();
 
@@ -22,8 +20,9 @@ namespace Services {
 					//print("puzzle " + puzzle.GetID());
 					puzzleList.Add(puzzle);
 
-
-					puzzle.SetMaterial(puzzleTexture);
+					//puzzleTexture = LoadMain();
+					//puzzleTexture = LoadMain();
+					//puzzle.SetMaterial(puzzleTexture, puzzleAlpha); 
 				}
 			}
 		}
