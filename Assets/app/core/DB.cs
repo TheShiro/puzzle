@@ -64,7 +64,16 @@ namespace DB {
 		}
 
 		public static void Where(string[,] s) {
-			_query += " where ";
+			_query += " where";
+
+			for(int i = 0; i < s.GetLength(0); i++) {
+
+				//Debug.Log(s[i,0] + " = " + s[i,1]);
+
+				_query += " " + s[i,0] + " = " + s[i,1] + ",";
+			}
+
+			_query = _query.Remove(_query.Length - 1);
 		}
 
 		public static void One() {

@@ -16,13 +16,6 @@ namespace Models {
 		}
 
 		public static void GetAlpha() {
-			/*DB.DB.Query("select * from alpha");
-			DB.DB.All();
-
-			DB.DB.Query("SELECT * FROM setting");
-			DB.DB.All();*/
-
-			//DBCore.Query();
 			DBCore.Select();
 			DBCore.From("alpha");
 			DBCore.All();
