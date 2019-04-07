@@ -7,6 +7,8 @@ namespace Services {
 
 	public class PuzzlesService : MonoBehaviour {
 
+		public static Texture puzzleTexture;
+
 		public static List<PuzzleObject> puzzleList = new List<PuzzleObject>();
 
 		public static void GeneratorPuzzles(int x, int y) {
@@ -20,7 +22,8 @@ namespace Services {
 					//print("puzzle " + puzzle.GetID());
 					puzzleList.Add(puzzle);
 
-					puzzle.SetMaterial();
+
+					puzzle.SetMaterial(puzzleTexture);
 				}
 			}
 		}

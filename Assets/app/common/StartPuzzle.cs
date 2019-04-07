@@ -8,5 +8,7 @@ public class StartPuzzle : MonoBehaviour {
 
 	void Start () {
 		PuzzlesService.GeneratorPuzzles(2, 2);
+
+		//Debug.Log(PuzzlesService.puzzleList.Count);
 	}
 }

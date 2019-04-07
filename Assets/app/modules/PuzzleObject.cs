@@ -40,13 +40,13 @@ namespace Modules {
 			return this.id;
 		}
 
-		public PuzzleObject SetMaterial() {
+		public void SetMaterial(Texture main) {
 			MeshRenderer mesh = _object.GetComponent<MeshRenderer>();
 
-			print(mesh);
-
-			return this;
+			mesh.materials[0].SetTexture("_MainTex", main);
 		}
+
+
 	}
 
 }
