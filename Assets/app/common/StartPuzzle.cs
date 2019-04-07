@@ -7,6 +7,6 @@ using Services;
 public class StartPuzzle : MonoBehaviour {
 
 	void Start () {
-		PuzzleService.GeneratorPuzzles(2, 2);
+		PuzzlesService.GeneratorPuzzles(2, 2);
 	}
 }

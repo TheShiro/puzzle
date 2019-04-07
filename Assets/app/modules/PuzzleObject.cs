@@ -8,6 +8,14 @@ namespace Modules {
 
 		private int id;
 
+		/*
+		* 0 - none; 1 - giver; 2 - receiver
+		*/
+		public int topSide;
+		public int bottomSide;
+		public int leftSide;
+		public int rightSide;
+
 		//constructor
 		public PuzzleObject(string nameObject, Vector3 position, int id) {
 			ObjectInit(nameObject);
@@ -33,7 +41,11 @@ namespace Modules {
 		}
 
 		public PuzzleObject SetMaterial() {
-			
+			MeshRenderer mesh = _object.GetComponent<MeshRenderer>();
+
+			print(mesh);
+
+			return this;
 		}
 	}
 

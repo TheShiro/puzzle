@@ -5,7 +5,9 @@ using Modules;
 
 namespace Services {
 
-	public class PuzzleService : MonoBehaviour {
+	public class PuzzlesService : MonoBehaviour {
+
+		public static List<PuzzleObject> puzzleList = new List<PuzzleObject>();
 
 		public static void GeneratorPuzzles(int x, int y) {
 			//horizontal
@@ -16,6 +18,9 @@ namespace Services {
 					int id = j + x * i + 1;
 					PuzzleObject puzzle = new PuzzleObject("puzzle", new Vector3(i,j,0), id);
 					//print("puzzle " + puzzle.GetID());
+					puzzleList.Add(puzzle);
+
+					puzzle.SetMaterial();
 				}
 			}
 		}
