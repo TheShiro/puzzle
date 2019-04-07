@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class config : MonoBehaviour {
+namespace Config {
 
-	// Use this for initialization
-	void Start () {
-		
+	public class C {
+
+		public const string TEXTURE = "texture/";
+
+		public const string PREFAB = "prefab/";
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

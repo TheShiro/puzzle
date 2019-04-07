@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using Config;
 
 namespace Modules {
 
@@ -19,7 +20,7 @@ namespace Modules {
 
 		//constructor
 		public PuzzleObject(string nameObject, Vector3 position, int id) {
-			ObjectInit("Prefabs/" + nameObject);
+			ObjectInit(C.PREFAB + nameObject);
 			SetTransform(position);
 			SetID(id);
 			SetName("puzzle" + id);

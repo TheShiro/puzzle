@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Modules;
 using DB;
+using Config;
 
 namespace Models {
 	public class PuzzleModel : ModelCore {
 
 		private static Texture LoadMain() {
-			return Resources.Load("Textures/001") as Texture;
+			return Resources.Load(C.TEXTURE + "001") as Texture;
 		}
 
 		private static Texture LoadAlpha() {
-			return Resources.Load("Textures/001") as Texture;
+			return Resources.Load(C.TEXTURE + "001") as Texture;
 		}
 
 		public static void GetAlpha() {

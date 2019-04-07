@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System;
 using UnityEngine.UI;
+using DB_config;
 
 namespace DB {
 
@@ -23,7 +24,7 @@ namespace DB {
 
 		private static SqliteConnection SetConnection() {
 			if(_connect == null) {
-				path = Application.dataPath + "/pzl.bytes.db";
+				path = Application.dataPath + DBConfig.DB_NAME;
 				_connect = new SqliteConnection("URI=file:" + path);
 				_connect.Open();
 
