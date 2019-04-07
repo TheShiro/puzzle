@@ -35,7 +35,7 @@ namespace DB {
 		}
 
 		public void One() {
-			//_result
+			_result = new string[1];
 		}
 		
 	}
