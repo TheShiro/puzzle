@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PuzzleObject : MonoBehaviour {
+namespace Modules {
 
-	// Use this for initialization
-	void Start () {
-		
+	public class PuzzleObject : ObjectBase {
+
+		//constructor
+		public PuzzleObject(string nameObject, Vector3 position) : base(nameObject) {
+			SetTransform(position);
+		}
+
+		public void GetObject() {
+			print(_object);
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

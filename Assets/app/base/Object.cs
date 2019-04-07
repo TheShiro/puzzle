@@ -6,8 +6,14 @@ public class ObjectBase : MonoBehaviour {
 
 	private Transform _transfrorm;
 
-	protected GameObject prefab;
+	//protected GameObject prefab;
 	protected GameObject _object;
+
+	//constructor
+	public ObjectBase(string nameObject) {
+		//_object = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+		_object = Instantiate(Resources.Load(nameObject)) as GameObject;
+	}
 
 	private void TransformInit() {
 		_transfrorm = gameObject.transform;
@@ -29,6 +35,10 @@ public class ObjectBase : MonoBehaviour {
 	public void SetTransform(float x, float y, float z) {
 		_transfrorm.position = new Vector3(x, y, z);
 	}
+
+	public void SetTransform(Vector3 pos) {
+		_transfrorm.position = new Vector3(pos.x, pos.y, pos.z);
+	}
 	/* SetTransform end */
 
 	/* AddTransform start */
@@ -45,11 +55,7 @@ public class ObjectBase : MonoBehaviour {
 	}
 	/* AddTransform end */
 
-	protected void CreateObject() {
-		_object = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+	public void Passport() {
+		print("class ObjectBase");
 	}
-
-
-
-	
 }
