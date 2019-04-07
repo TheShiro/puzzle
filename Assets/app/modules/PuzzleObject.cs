@@ -41,9 +41,12 @@ namespace Modules {
 			return this.id;
 		}
 
-		public void SetMaterial(Texture main, Texture alpha) {
-			this.SetMaterial("_MainTex", main);
-			this.SetMaterial("_Alpha", alpha);
+		public void SetMaterial() {
+
+			PuzzleModel.GetAlpha();
+
+			//this.SetMaterial("_MainTex", main);
+			//this.SetMaterial("_Alpha", alpha);
 		}
 	}
 

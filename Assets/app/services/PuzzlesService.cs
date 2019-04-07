@@ -22,7 +22,7 @@ namespace Services {
 
 					//puzzleTexture = LoadMain();
 					//puzzleTexture = LoadMain();
-					//puzzle.SetMaterial(puzzleTexture, puzzleAlpha); 
+					puzzle.SetMaterial(); 
 				}
 			}
 		}
