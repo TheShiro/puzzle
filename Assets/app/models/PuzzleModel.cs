@@ -4,7 +4,7 @@ using UnityEngine;
 using Modules;
 
 namespace Models {
-	public static class PuzzleModel {
+	public class PuzzleModel : ModelCore {
 
 		private static Texture LoadMain() {
 			return Resources.Load("Textures/001") as Texture;
