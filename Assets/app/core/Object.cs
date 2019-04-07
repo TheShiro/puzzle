@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectBase : MonoBehaviour {
+public class ObjectCore : MonoBehaviour {
 
 	private Transform _transfrorm;
 
@@ -10,7 +10,7 @@ public class ObjectBase : MonoBehaviour {
 	protected GameObject _object;
 
 	//constructor
-	public ObjectBase(string nameObject) {
+	public ObjectCore(string nameObject) {
 		//_object = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
 		_object = Instantiate(Resources.Load(nameObject)) as GameObject;
 	}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Modules {
 
-	public class PuzzleObject : ObjectBase {
+	public class PuzzleObject : ObjectCore {
 
 		//constructor
 		public PuzzleObject(string nameObject, Vector3 position) : base(nameObject) {
