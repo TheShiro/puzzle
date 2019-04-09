@@ -5,5 +5,5 @@ using DB;
 
 public class ModelCore : MonoBehaviour {
 
-	
+	protected DBCore db = new DBCore();
 }

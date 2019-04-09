@@ -24,8 +24,9 @@ namespace DB {
 
 		private static SqliteConnection SetConnection() {
 			if(_connect == null) {
-				path = Application.dataPath + DBConfig.DB_NAME;
-				_connect = new SqliteConnection("URI=file:" + path);
+				path = Application.dataPath + "/pzl.bytes";
+				_connect = new SqliteConnection("Data Source=" + path);
+				_command = new SqliteCommand(_connect);
 				_connect.Open();
 
 				if(_connect.State == ConnectionState.Open) {
@@ -36,14 +37,25 @@ namespace DB {
 			return _connect;
 		}
 
-		public static void Query() {
+		/*public void get() {
 			SetConnection();
 
+			_command.CommandText = "SELECT * FROM alpha";
+			var answer = _command.ExecuteScalar();
+			Debug.Log(answer.ToString());
+		}*/
+
+		public void Query() {
+			SetConnection();
+
+			Debug.Log(_query);
 			_command = new SqliteCommand(_query, _connect);
+			Debug.Log(_command);
 			_reader = _command.ExecuteReader();
+			Debug.Log(_reader);
 		}
 
-		public static void Select(string[] s) {
+		public void Select(string[] s) {
 			_query = "select";
 
 			foreach(string select in s) {
@@ -54,40 +66,38 @@ namespace DB {
 			_query += " ";
 		}
 
-		public static void Select() {
-			_query = "select * ";
+		public void Select() {
+			_query = "Select * ";
 		}
 
-		public static void From(string table) {
+		public void From(string table) {
 			_query += " from " + table + " ";
 		}
 
-		public static void Where(string[,] s) {
+		public void Where(string[,] s) {
 			_query += " where";
 
 			for(int i = 0; i < s.GetLength(0); i++) {
-
-				//Debug.Log(s[i,0] + " = " + s[i,1]);
-
-				_query += " " + s[i,0] + " = " + s[i,1] + ",";
+				string smb = (s[i,2] == "text") ? "like" : "=";
+				_query += " '" + s[i,0] + "' " + smb + " '" + s[i,1] + "',";
 			}
 
 			_query = _query.Remove(_query.Length - 1);
 		}
 
-		public static void Order(string order) {
+		public void Order(string order) {
 			_query += " order by " + order + " ";
 		}
 
-		public static void Group(string group) {
+		public void Group(string group) {
 			_query += " group by " + group + " ";
 		}
 
-		public static void Limit(string limit) {
+		public void Limit(string limit) {
 			_query += " limit " + limit;
 		}
 
-		public static void One() {
+		public void One() {
 			SetConnection();
 
 			Query();
@@ -97,17 +107,18 @@ namespace DB {
 			Debug.Log(_reader[0]);
 		}
 
-		public static void All() {
+		public void All() {
 			SetConnection();
 
 			Query();
 
-			Debug.Log(_query);
+			//Debug.Log(_reader);
 
-			//while(_reader.Read()) {
-				//Debug.Log(_reader[1]);
-			//}
+			while(_reader.Read()) {
+				Debug.Log(_reader[1]);
+			}
 		}
+
 		
 	}
 

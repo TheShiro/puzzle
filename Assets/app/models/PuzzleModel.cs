@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Modules;
-using DB;
 using Config;
 
 namespace Models {
@@ -16,10 +15,12 @@ namespace Models {
 			return Resources.Load(C.TEXTURE + "001") as Texture;
 		}
 
-		public static void GetAlpha() {
-			DBCore.Select();
-			DBCore.From("alpha");
-			DBCore.All();
+		public void GetAlpha() {
+			db.Select();
+			db.From("alpha");
+			db.All();
+
+			//db.get();
 		}
 	}
 }

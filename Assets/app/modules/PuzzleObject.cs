@@ -43,8 +43,8 @@ namespace Modules {
 		}
 
 		public void SetMaterial() {
-
-			PuzzleModel.GetAlpha();
+			PuzzleModel model = new PuzzleModel();
+			model.GetAlpha();
 
 			//this.SetMaterial("_MainTex", main);
 			//this.SetMaterial("_Alpha", alpha);

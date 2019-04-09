@@ -6,9 +6,9 @@ namespace Config {
 
 	public class C {
 
-		public const string TEXTURE = "texture/";
+		public const string TEXTURE = "Textures/";
 
-		public const string PREFAB = "prefab/";
+		public const string PREFAB = "Prefabs/";
 
 	}
 
