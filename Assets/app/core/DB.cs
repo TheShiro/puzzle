@@ -37,22 +37,14 @@ namespace DB {
 			return _connect;
 		}
 
-		/*public void get() {
-			SetConnection();
-
-			_command.CommandText = "SELECT * FROM alpha";
-			var answer = _command.ExecuteScalar();
-			Debug.Log(answer.ToString());
-		}*/
-
 		public void Query() {
 			SetConnection();
 
 			Debug.Log(_query);
 			_command = new SqliteCommand(_query, _connect);
-			Debug.Log(_command);
+			//Debug.Log(_command);
 			_reader = _command.ExecuteReader();
-			Debug.Log(_reader);
+			//Debug.Log(_reader);
 		}
 
 		public void Select(string[] s) {
@@ -68,6 +60,10 @@ namespace DB {
 
 		public void Select() {
 			_query = "Select * ";
+		}
+
+		public void Select(string sql) {
+			_query = sql;
 		}
 
 		public void From(string table) {
@@ -100,11 +96,12 @@ namespace DB {
 		public void One() {
 			SetConnection();
 
+			Limit("1");
 			Query();
 
-			_result = new string[1];
-
-			Debug.Log(_reader[0]);
+			while(_reader.Read()) {
+				Debug.Log(_reader.GetLength(0));
+			}
 		}
 
 		public void All() {
