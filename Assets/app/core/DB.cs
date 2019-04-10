@@ -100,7 +100,10 @@ namespace DB {
 			Query();
 
 			while(_reader.Read()) {
-				Debug.Log(_reader.GetLength(0));
+				//Debug.Log(_reader[]);
+				if(_reader[6] == null) {
+					Debug.Log("is out");
+				}
 			}
 		}
 
@@ -116,7 +119,11 @@ namespace DB {
 			}
 		}
 
-		
+		private int GetLengthReader() {
+			//ищем в запросе колечество запятых между select и from
+			//к этому количеству прибавляем 1 - это и будет количество столбцов
+			return 0;
+		}
 	}
 
 }
