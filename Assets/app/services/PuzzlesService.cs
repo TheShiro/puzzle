@@ -10,20 +10,20 @@ namespace Services {
 
 		public static List<PuzzleObject> puzzleList = new List<PuzzleObject>();
 
-		public static void GeneratorPuzzles(int x, int y) {
+		public static void GeneratorPuzzles(int x, int y, string image) {
 			//horizontal
 			for(int i = 0; i < x; i++) {
 				//vertical
 				for(int j = 0; j < y; j++) {
 					//formula getting id of puzzle
 					int id = j + x * i + 1;
-					PuzzleObject puzzle = new PuzzleObject("puzzle", new Vector3(i,j,0), id);
+					PuzzleObject puzzle = new PuzzleObject("puzzle", new Vector3(i,0,j), id);
 					//print("puzzle " + puzzle.GetID());
 					puzzleList.Add(puzzle);
 
 					//puzzleTexture = LoadMain();
 					//puzzleTexture = LoadMain();
-					puzzle.SetMaterial(); 
+					puzzle.SetMaterial(image); 
 				}
 			}
 		}
@@ -34,7 +34,7 @@ namespace Services {
 			string[] settings = gm.GetSettingScenePuzzle();
 			//gm.GetSettingScenePuzzle();
 
-			return new string[]{"", ""};
+			return settings;
 		}
 	}
 

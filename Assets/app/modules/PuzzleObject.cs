@@ -42,7 +42,7 @@ namespace Modules {
 			return this.id;
 		}
 
-		public void SetMaterial() {
+		public void SetMaterial(string mainTex) {
 			PuzzleModel model = new PuzzleModel();
 			model.GetAlpha();
 

@@ -123,12 +123,6 @@ namespace DB {
 				Debug.Log(_reader[1]);
 			}
 		}
-
-		private int GetLengthReader() {
-			//ищем в запросе колечество запятых между select и from
-			//к этому количеству прибавляем 1 - это и будет количество столбцов
-			return 0;
-		}
 	}
 
 }

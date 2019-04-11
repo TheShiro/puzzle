@@ -16,11 +16,8 @@ namespace Models {
 			db.One();
 
 			string[,] res = db.GetResult();
-			
-			Debug.Log(res[0,1]);
 
-			//settings[0] = "123";
-			return new string[]{"", ""};
+			return new string[]{res[0,0], res[0,1], res[0,2], res[0,3], res[0,4]};
 		} 
 	}
 }
