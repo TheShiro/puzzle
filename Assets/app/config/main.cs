@@ -8,6 +8,8 @@ namespace Config {
 
 		public const string TEXTURE = "Textures/";
 
+		public const string ALPHA = "Textures/Aplha/";
+
 		public const string PREFAB = "Prefabs/";
 
 	}

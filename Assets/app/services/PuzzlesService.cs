@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Modules;
+using Models;
 
 namespace Services {
 
@@ -25,6 +26,15 @@ namespace Services {
 					puzzle.SetMaterial(); 
 				}
 			}
+		}
+
+		public static string[] GetSettings() {
+			GamesModel gm = new GamesModel();
+
+			string[] settings = gm.GetSettingScenePuzzle();
+			//gm.GetSettingScenePuzzle();
+
+			return new string[]{"", ""};
 		}
 	}
 

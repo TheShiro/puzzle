@@ -6,7 +6,7 @@ namespace DB_config {
 
 	public class DBConfig {
 
-		public const string DB_NAME = "pzl.bytes";
+		public const string DB_NAME = "/pzl.bytes";
 
 	}
 
