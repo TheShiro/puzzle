@@ -13,10 +13,10 @@ namespace Modules {
 		/*
 		* 0 - none; 1 - giver; 2 - receiver
 		*/
-		public int topSide;
-		public int bottomSide;
-		public int leftSide;
-		public int rightSide;
+		private int topSide;
+		private int bottomSide;
+		private int leftSide;
+		private int rightSide;
 
 		//constructor
 		public PuzzleObject(string nameObject, Vector3 position, int id) {
@@ -44,11 +44,58 @@ namespace Modules {
 
 		public void SetMaterial(string mainTex) {
 			PuzzleModel model = new PuzzleModel();
-			model.GetAlpha();
+			//model.GetAlpha();
 
-			//this.SetMaterial("_MainTex", main);
+			this.SetMaterial("_MainTex", model.GetMain(mainTex));
 			//this.SetMaterial("_Alpha", alpha);
 		}
+
+		/* start block set:get for type of sides*/
+		
+		public bool SetTypeSides(string[] side, int[] type) {
+			if(side.Length != type.Length) return false;
+
+			int i = 1;
+			foreach(string s in side) {
+				switch(s) {
+					case "top" : this.SetTopSide(type[i]); break;
+					case "bottom" : this.SetBottomSide(type[i]); break;
+					case "left" : this.SetLeftSide(type[i]); break;
+					case "right" : this.SetRightSide(type[i]); break;
+				}
+
+				i++;
+			}
+
+			return true;
+		}
+
+		private void SetTopSide(int t) {
+			this.topSide = t;
+		}
+
+		private void SetBottomSide(int t) {
+			this.bottomSide = t;
+		}
+
+		private void SetLeftSide(int t) {
+			this.leftSide = t;
+		}
+
+		private void SetRightSide(int t) {
+			this.rightSide = t;
+		}
+
+		public int GetTypeSide(out int top, out int bottom, out int left, out int right) {
+			top = this.topSide;
+			bottom = this.bottomSide;
+			left = this.leftSide;
+			right = this.rightSide;
+
+			return 0;
+		}
+
+		/* end block get:set for type of sides*/
 	}
 
 }
