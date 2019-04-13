@@ -44,14 +44,13 @@ namespace Modules {
 
 		public void SetMaterial(string mainTex) {
 			PuzzleModel model = new PuzzleModel();
-			//model.GetAlpha();
 
 			this.SetMaterial("_MainTex", model.GetMain(mainTex));
-			//this.SetMaterial("_Alpha", alpha);
+			this.SetMaterial("_Alpha", model.GetAlpha());
 		}
 
 		/* start block set:get for type of sides*/
-		
+
 		public bool SetTypeSides(string[] side, int[] type) {
 			if(side.Length != type.Length) return false;
 

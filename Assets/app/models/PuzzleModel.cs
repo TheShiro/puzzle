@@ -11,17 +11,17 @@ namespace Models {
 			return Resources.Load(C.TEXTURE + tex) as Texture;
 		}
 
-		public Texture GetAlpha(string mask) {
+		private Texture LoadAlpha(string mask) {
 			return Resources.Load(C.ALPHA + mask) as Texture;
 		}
 
-		/*public string GetAlpha() {
+		public Texture GetAlpha() {
 			/*db.Select();
 			db.From("alpha");
-			db.All();*-/
+			db.All();*/
 
-			return "";
-		}*/
+			return this.LoadAlpha("Edge");
+		}
 
 
 		//example method with out parameter

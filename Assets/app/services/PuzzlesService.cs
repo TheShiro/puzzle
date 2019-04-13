@@ -21,8 +21,6 @@ namespace Services {
 					//print("puzzle " + puzzle.GetID());
 					puzzleList.Add(puzzle);
 
-					//puzzleTexture = LoadMain();
-					//puzzleTexture = LoadMain();
 					puzzle.SetMaterial(image); 
 				}
 			}
