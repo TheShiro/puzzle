@@ -16,11 +16,15 @@ namespace Models {
 		}
 
 		public Texture GetAlpha() {
-			/*db.Select();
+			db.Select(new string[] {"mask_name"});
 			db.From("alpha");
-			db.All();*/
+			db.Where(new string[,] { {"top", "0", ""}, {"left", "0", ""} });
+			db.Order("random", "()");
+			db.One();
 
-			return this.LoadAlpha("Edge");
+			string[,] res = db.GetResult();
+
+			return this.LoadAlpha(res[0,0]);
 		}
 
 

@@ -31,7 +31,7 @@ namespace DB {
 				_connect.Open();
 
 				if(_connect.State == ConnectionState.Open) {
-					Debug.Log("Connected DB");
+					//Debug.Log("Connected DB");
 				}
 			} 
 
@@ -41,7 +41,7 @@ namespace DB {
 		public void Query() {
 			SetConnection();
 
-			Debug.Log("Query = \"" + _query + "\"");
+			//Debug.Log("Query = \"" + _query + "\"");
 			_command = new SqliteCommand(_query, _connect);
 			//Debug.Log(_command);
 			_reader = _command.ExecuteReader();
@@ -74,11 +74,11 @@ namespace DB {
 			_query += " where";
 
 			for(int i = 0; i < s.GetLength(0); i++) {
-				_query += (s[i,2] == "text") ?  " '" + s[i,0] + "' like '" + s[i,1] + "'," : " " + s[i,0] + " = " + s[i,1] + ",";
+				_query += (s[i,2] == "text") ?  " '" + s[i,0] + "' like '" + s[i,1] + "'," : " " + s[i,0] + " = " + s[i,1] + " and";
 				//_query += " '" + s[i,0] + "' " + smb + " '" + s[i,1] + "',";
 			}
 
-			_query = _query.Remove(_query.Length - 1);
+			_query = _query.Remove(_query.Length - 3);
 		}
 
 		public void Order(string order, string type) {
@@ -99,7 +99,7 @@ namespace DB {
 			Limit("1");
 			Query();
 
-			Debug.Log("Count of field = " + selectCount);
+			//Debug.Log("Count of field = " + selectCount);
 
 			_result = new string[1,selectCount];
 
