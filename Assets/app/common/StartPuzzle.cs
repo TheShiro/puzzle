@@ -10,7 +10,7 @@ public class StartPuzzle : MonoBehaviour {
 	public int puzzleID;
 
 	void Start () {
-		string[] gameSettings = PuzzlesService.GetSettings();
+		string[] gameSettings = GameService.GetSettings();
 		gamesID = Int32.Parse(gameSettings[0]);
 		puzzleID = Int32.Parse(gameSettings[1]);
 

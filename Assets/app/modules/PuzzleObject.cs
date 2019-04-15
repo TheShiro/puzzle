@@ -31,7 +31,7 @@ namespace Modules {
 		}
 
 		public void GetObject() {
-			print(_object);
+			//print(_object);
 		}
 
 		private void SetID(int id) {

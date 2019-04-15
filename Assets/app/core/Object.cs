@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectCore : MonoBehaviour {
+public class ObjectCore : ScriptableObject {
 
 	private Transform _transfrorm;
 	private MeshRenderer _mesh;
@@ -73,6 +73,6 @@ public class ObjectCore : MonoBehaviour {
 
 
 	protected void Passport() {
-		print("class ObjectBase");
+		//print("class ObjectBase");
 	}
 }
