@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
@@ -42,11 +42,17 @@ namespace Modules {
 			return this.id;
 		}
 
-		public void SetMaterial(string mainTex) {
+		public void SetMaterial(string mainTex, string alpha) {
 			PuzzleModel model = new PuzzleModel();
 
+			Debug.Log(alpha);
+			this.SetTopSide((int)alpha[0]);
+			this.SetBottomSide((int)alpha[1]);
+			this.SetLeftSide((int)alpha[2]);
+			this.SetRightSide((int)alpha[3]);
+
 			this.SetMaterial("_MainTex", model.GetMain(mainTex));
-			this.SetMaterial("_Alpha", model.GetAlpha());
+			this.SetMaterial("_Alpha", model.GetAlpha(alpha));
 		}
 
 		/* start block set:get for type of sides*/
@@ -90,6 +96,17 @@ namespace Modules {
 			bottom = this.bottomSide;
 			left = this.leftSide;
 			right = this.rightSide;
+
+			return 0;
+		}
+
+		public int GetTypeSide(string side) {
+			switch(side) {
+				case "top": return this.topSide;
+				case "bottom": return this.bottomSide;
+				case "left": return this.leftSide;
+				case "right": return this.rightSide;
+			}
 
 			return 0;
 		}

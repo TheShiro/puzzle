@@ -15,7 +15,7 @@ namespace Models {
 			return Resources.Load(C.ALPHA + mask) as Texture;
 		}
 
-		public Texture GetAlpha() {
+		public Texture GetAlpha(string all_side) {
 			db.Select(new string[] {"mask_name"});
 			db.From("alpha");
 			db.Where(new string[,] { {"top", "0", ""}, {"left", "0", ""} });
