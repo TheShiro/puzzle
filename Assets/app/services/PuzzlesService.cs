@@ -25,7 +25,6 @@ namespace Services {
 					puzzleArray[id-1] = puzzle;
 
 					Debug.Log("start id = " + id + " / x=" + x + " / y=" + y);
-					//GetMatrixPosition(id, x, y);
 
 					puzzle.SetMaterial(image, GetMatrixPosition(id, x, y)); 
 				}
@@ -33,10 +32,7 @@ namespace Services {
 		}
 
 		private static string GetMatrixPosition(int id, int x, int y) {
-			Debug.Log("top " + SearchTopSide(id, x));
-			Debug.Log("bottom " + SearchBottomSide(id, x, y));
-			Debug.Log("left " + SearchLeftSide(id, x));
-			Debug.Log("right " + SearchRightSide(id, x));
+			PuzzleObject obj;
 
 			int top = SearchTopSide(id, x);
 			int bottom = SearchBottomSide(id, x, y);
@@ -44,24 +40,18 @@ namespace Services {
 			int right = SearchRightSide(id, x);
 
 			if(top == 3) {
-				int top_id = id - x;
-				int b_side = puzzleArray[top_id].GetTypeSide("bottom");
-
-				top = (b_side == 1) ? 2: 1;
+				obj = new PuzzleObject(id - x);
+				string b_side = obj.GetTypeSide();
+				Debug.Log("top " + b_side);
+				top = (b_side[1] == '1') ? 2: 1;
 			}
 
 			if(left == 3) {
-				int left_id = id - 1;
-				int r_side = puzzleArray[left_id].GetTypeSide("right");
-
-				left = (r_side == 1) ? 2: 1;
+				obj = new PuzzleObject(id - 1);
+				string r_side = obj.GetTypeSide();
+				Debug.Log("left " + r_side);
+				left = (r_side[3] == '1') ? 2: 1;
 			}
-
-			Debug.Log("top " + top);
-			Debug.Log("bottom " + bottom);
-			Debug.Log("left " + left);
-			Debug.Log("right " + right);
-			Debug.Log("--------------------------------------------");
 
 			return top + "" + bottom + "" + left + "" + right;
 		}

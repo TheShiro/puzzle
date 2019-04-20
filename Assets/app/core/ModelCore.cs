@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DB;
+﻿using DB;
 
-public class ModelCore : MonoBehaviour {
+public class ModelCore {
 
 	protected DBCore db = new DBCore();
 }

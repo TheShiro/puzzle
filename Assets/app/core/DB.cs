@@ -74,8 +74,8 @@ namespace DB {
 			_query += " where";
 
 			for(int i = 0; i < s.GetLength(0); i++) {
-				_query += (s[i,2] == "text") ?  " '" + s[i,0] + "' like '" + s[i,1] + "'," : " " + s[i,0] + " = " + s[i,1] + " and";
-				//_query += " '" + s[i,0] + "' " + smb + " '" + s[i,1] + "',";
+				//_query += (s[i,2] == "text") ?  " '" + s[i,0] + "' like '" + s[i,1] + "'," : " " + s[i,0] + " = " + s[i,1] + " and";
+				_query += this.smb_decode(s[i,2], s[i,0], s[i,1]);
 			}
 
 			_query = _query.Remove(_query.Length - 3);
@@ -121,6 +121,14 @@ namespace DB {
 
 			while(_reader.Read()) {
 				Debug.Log(_reader[1]);
+			}
+		}
+
+		private string smb_decode(string smb, string field, string val) {
+			switch(smb) {
+				case "text": return " '" + field + "' like '" + val + "' and";
+				case "not": return " " + field + " <> " + val + " and";
+				default: return " " + field + " = " + val + " and";
 			}
 		}
 	}

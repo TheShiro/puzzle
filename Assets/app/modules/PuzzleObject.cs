@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,16 +19,17 @@ namespace Modules {
 		private int leftSide;
 		private int rightSide;
 
-		//constructor
+		//constructor for create
 		public PuzzleObject(string nameObject, Vector3 position, int id) {
 			ObjectInit(C.PREFAB + nameObject);
 			SetTransform(position);
 			SetID(id);
 			SetName("puzzle" + id);
 		}
-
+		//constructor for find
 		public PuzzleObject(int id) {
-
+			_object = GameObject.Find("puzzle" + id);
+			_component = _object.GetComponent<PuzzleComponent>();
 		}
 
 		public void GetObject() {
@@ -36,6 +38,8 @@ namespace Modules {
 
 		private void SetID(int id) {
 			this.id = id;
+			_component = _object.GetComponent<PuzzleComponent>();
+			//Debug.Log(_component);
 		}
 
 		public int GetID() {
@@ -45,14 +49,19 @@ namespace Modules {
 		public void SetMaterial(string mainTex, string alpha) {
 			PuzzleModel model = new PuzzleModel();
 
-			Debug.Log(alpha);
-			this.SetTopSide((int)alpha[0]);
-			this.SetBottomSide((int)alpha[1]);
-			this.SetLeftSide((int)alpha[2]);
-			this.SetRightSide((int)alpha[3]);
+			//Debug.Log(alpha);
 
 			this.SetMaterial("_MainTex", model.GetMain(mainTex));
-			this.SetMaterial("_Alpha", model.GetAlpha(alpha));
+			this.SetMaterial("_Alpha", model.GetAlpha(ref alpha));
+
+			//Debug.Log((int)Char.GetNumericValue(alpha[0]));
+
+			this.SetTopSide((int)Char.GetNumericValue(alpha[0]));
+			this.SetBottomSide((int)Char.GetNumericValue(alpha[1]));
+			this.SetLeftSide((int)Char.GetNumericValue(alpha[2]));
+			this.SetRightSide((int)Char.GetNumericValue(alpha[3]));
+
+			//this.GetTypeSide("top");
 		}
 
 		/* start block set:get for type of sides*/
@@ -76,36 +85,33 @@ namespace Modules {
 		}
 
 		private void SetTopSide(int t) {
-			this.topSide = t;
+			_component.topSide = t;
 		}
 
 		private void SetBottomSide(int t) {
-			this.bottomSide = t;
+			_component.bottomSide = t;
 		}
 
 		private void SetLeftSide(int t) {
-			this.leftSide = t;
+			_component.leftSide = t;
 		}
 
 		private void SetRightSide(int t) {
-			this.rightSide = t;
+			_component.rightSide = t;
 		}
 
-		public int GetTypeSide(out int top, out int bottom, out int left, out int right) {
-			top = this.topSide;
-			bottom = this.bottomSide;
-			left = this.leftSide;
-			right = this.rightSide;
-
-			return 0;
+		public string GetTypeSide() {
+			//Debug.Log(_component);
+			return _component.topSide + "" + _component.bottomSide + "" + _component.leftSide + "" + _component.rightSide;
 		}
 
 		public int GetTypeSide(string side) {
+			//Debug.Log(_component.topSide + "" + _component.bottomSide + "" + _component.leftSide + "" + _component.rightSide);
 			switch(side) {
-				case "top": return this.topSide;
-				case "bottom": return this.bottomSide;
-				case "left": return this.leftSide;
-				case "right": return this.rightSide;
+				case "top": return _component.topSide;
+				case "bottom": return _component.bottomSide;
+				case "left": return _component.leftSide;
+				case "right": return _component.rightSide;
 			}
 
 			return 0;

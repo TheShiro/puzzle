@@ -10,6 +10,9 @@ public class ObjectCore : ScriptableObject {
 	//protected GameObject prefab;
 	protected GameObject _object;
 
+	//special component for save object setting
+	protected PuzzleComponent _component;
+
 	//initialization
 	public void ObjectInit(string nameObject) {
 		//_object = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
