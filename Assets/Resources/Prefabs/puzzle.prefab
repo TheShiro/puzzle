@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33903444139449636}
   - component: {fileID: 23486953822242530}
   - component: {fileID: 65628071423731736}
+  - component: {fileID: 114469496534735574}
   m_Layer: 0
   m_Name: puzzle
   m_TagString: Puzzle
@@ -95,3 +96,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114469496534735574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229203715335090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f71e7b3cc51e9408eba7b3d6b2338a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
