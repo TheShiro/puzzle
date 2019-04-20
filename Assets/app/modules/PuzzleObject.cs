@@ -64,6 +64,14 @@ namespace Modules {
 			//this.GetTypeSide("top");
 		}
 
+		public void SetMaterialOffset(Vector2 offset) {
+			this.SetMaterialOffset("_MainTex", offset);
+		}
+
+		public void SetMaterialScale(Vector2 scale) {
+			this.SetMaterialScale("_MainTex", scale);
+		}
+
 		/* start block set:get for type of sides*/
 
 		public bool SetTypeSides(string[] side, int[] type) {

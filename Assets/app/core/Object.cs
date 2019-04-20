@@ -73,7 +73,13 @@ public class ObjectCore : ScriptableObject {
 		_mesh.materials[0].SetTexture(channel, tex);
 	}
 
+	protected void SetMaterialScale(string channel, Vector2 scale) {
+		_mesh.materials[0].SetTextureScale(channel, scale);
+	}
 
+	protected void SetMaterialOffset(string channel, Vector2 offset) {
+		_mesh.materials[0].SetTextureOffset(channel, offset);
+	}
 
 	protected void Passport() {
 		//print("class ObjectBase");

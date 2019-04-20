@@ -27,6 +27,8 @@ namespace Services {
 					Debug.Log("start id = " + id + " / x=" + x + " / y=" + y);
 
 					puzzle.SetMaterial(image, GetMatrixPosition(id, x, y)); 
+					puzzle.SetMaterialOffset(new Vector2(1.0f / (float)x * (float)j, 1.0f / (float)y * (float)i));
+					puzzle.SetMaterialScale(new Vector2(1.0f / (float)x, 1.0f / (float)y));
 				}
 			}
 		}
@@ -42,14 +44,14 @@ namespace Services {
 			if(top == 3) {
 				obj = new PuzzleObject(id - x);
 				string b_side = obj.GetTypeSide();
-				Debug.Log("top " + b_side);
+				//Debug.Log("top " + b_side);
 				top = (b_side[1] == '1') ? 2: 1;
 			}
 
 			if(left == 3) {
 				obj = new PuzzleObject(id - 1);
 				string r_side = obj.GetTypeSide();
-				Debug.Log("left " + r_side);
+				//Debug.Log("left " + r_side);
 				left = (r_side[3] == '1') ? 2: 1;
 			}
 
