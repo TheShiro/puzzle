@@ -16,6 +16,15 @@ namespace Models {
 		}
 
 		public Texture GetAlpha(string all_side) {
+			int count = 0;
+
+			if(all_side[0] != 3) count++;
+			if(all_side[1] != 3) count++;
+			if(all_side[2] != 3) count++;
+			if(all_side[3] != 3) count++;
+
+			Debug.Log("count = " + count);
+
 			db.Select(new string[] {"mask_name"});
 			db.From("alpha");
 			db.Where(new string[,] { {"top", "0", ""}, {"left", "0", ""} });

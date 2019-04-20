@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class puzzle_functions : MonoBehaviour {
+public class PuzzleComponent : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
