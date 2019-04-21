@@ -19,7 +19,7 @@ namespace Services {
 					//formula getting id of puzzle
 					int id = j + (x * i) + 1;
  
-					PuzzleObject puzzle = new PuzzleObject("puzzle", new Vector3(GeneratePX(),0,GeneratePZ()), id);
+					PuzzleObject puzzle = new PuzzleObject("puzzle_UI", new Vector3(GeneratePX(),0,GeneratePZ()), id);
 
 					//save object
 					puzzleArray[id-1] = puzzle;

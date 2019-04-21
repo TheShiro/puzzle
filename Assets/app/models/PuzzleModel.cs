@@ -78,13 +78,5 @@ namespace Models {
 
 			return "";
 		}
-
-
-		//example method with out parameter
-		private int test(out int x) {
-			x = 10;
-			//code
-			return 1;
-		}
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Models;
 using Config;
 
@@ -19,12 +20,15 @@ namespace Modules {
 		private int leftSide;
 		private int rightSide;*/
 
+		private Image _mat;
+
 		//constructor for create
 		public PuzzleObject(string nameObject, Vector3 position, int id) {
 			ObjectInit(C.PREFAB + nameObject);
 			SetTransform(position);
 			SetID(id);
 			SetName("puzzle" + id);
+			MaterialInit();
 		}
 		//constructor for find
 		public PuzzleObject(int id) {
@@ -46,30 +50,42 @@ namespace Modules {
 			return _component.id;
 		}
 
+		//redefinition base method
+		private void MaterialInit() {
+			_mat = _object.GetComponent<Image>();
+			_mat.material = new Material(Shader.Find("Puzzle/puzzle"));
+		}
+
+		private void AttachToCanvas() {
+			//
+		}
+
 		public void SetMaterial(string mainTex, string alpha) {
 			PuzzleModel model = new PuzzleModel();
 
 			//Debug.Log(alpha);
 
-			this.SetMaterial("_MainTex", model.GetMain(mainTex));
-			this.SetMaterial("_Alpha", model.GetAlpha(ref alpha));
+			//this.SetMaterial("_MainTex", model.GetMain(mainTex));
+			//this.SetMaterial("_Alpha", model.GetAlpha(ref alpha));
+			_mat.material.SetTexture("_MainTex", model.GetMain(mainTex));
+			_mat.material.SetTexture("_Alpha", model.GetAlpha(ref alpha));
 
-			//Debug.Log((int)Char.GetNumericValue(alpha[0]));
-
-			this.SetTopSide((int)Char.GetNumericValue(alpha[0]));
-			this.SetBottomSide((int)Char.GetNumericValue(alpha[1]));
-			this.SetLeftSide((int)Char.GetNumericValue(alpha[2]));
-			this.SetRightSide((int)Char.GetNumericValue(alpha[3]));
+			this.SetTopSide(Int32.Parse("" + alpha[0]));
+			this.SetBottomSide(Int32.Parse("" + alpha[1]));
+			this.SetLeftSide(Int32.Parse("" + alpha[2]));
+			this.SetRightSide(Int32.Parse("" + alpha[3]));
 
 			//this.GetTypeSide("top");
 		}
 
 		public void SetMaterialOffset(Vector2 offset) {
-			this.SetMaterialOffset("_MainTex", offset);
+			//this.SetMaterialOffset("_MainTex", offset);
+			_mat.material.SetTextureOffset("_MainTex", offset);
 		}
 
 		public void SetMaterialScale(Vector2 scale) {
-			this.SetMaterialScale("_MainTex", scale);
+			//this.SetMaterialScale("_MainTex", scale);
+			_mat.material.SetTextureScale("_MainTex", scale);
 		}
 
 		/* start block set:get for type of sides*/

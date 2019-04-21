@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class ObjectCore : ScriptableObject {
 
@@ -16,7 +17,7 @@ public class ObjectCore : ScriptableObject {
 	//initialization
 	public void ObjectInit(string nameObject) {
 		//_object = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
-		_object = Instantiate(Resources.Load(nameObject)) as GameObject;
+		_object = PrefabUtility.InstantiatePrefab(Resources.Load(nameObject) as GameObject) as GameObject;
 		TransformInit();
 		MaterialInit();
 	}
