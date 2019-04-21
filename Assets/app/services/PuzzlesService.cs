@@ -19,7 +19,7 @@ namespace Services {
 					//formula getting id of puzzle
 					int id = j + (x * i) + 1;
  
-					PuzzleObject puzzle = new PuzzleObject("puzzle", new Vector3((j * 9),0,(-i * 9)), id);
+					PuzzleObject puzzle = new PuzzleObject("puzzle", new Vector3(GeneratePX(),0,GeneratePZ()), id);
 
 					//save object
 					puzzleArray[id-1] = puzzle;
@@ -32,7 +32,6 @@ namespace Services {
 					float off_y = 1.0f / (float)y * 0.32f;
 					puzzle.SetMaterialOffset(new Vector2((1.0f / (float)x * (float)j) - off_x, (1.0f / (float)y * ((float)y - 1 -(float)i)) - off_y));
 					float scale_x = 1.0f / (float)x * 0.609f;
-					float scale_y = 1.0f / (float)y * 0.609f;
 					puzzle.SetMaterialScale(new Vector2((1.0f / (float)x) + scale_x, (1.0f / (float)y) / 0.609f));
 				}
 			}
@@ -104,6 +103,18 @@ namespace Services {
 			if(id == x) return 0;
 
 			return 3;
+		}
+
+		//Generate position on x
+		private static float GeneratePX() {
+			//Random rand = new Random();
+			return Random.Range(-29.0f, -20.0f);
+		}
+
+		//Generate position on z
+		private static float GeneratePZ() {
+			//Random rand = new Random();
+			return Random.Range(-27.0f, 7.0f);
 		}
 	}
 
