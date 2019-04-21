@@ -27,8 +27,13 @@ namespace Services {
 					Debug.Log("start id = " + id + " / x=" + x + " / y=" + y);
 
 					puzzle.SetMaterial(image, GetMatrixPosition(id, x, y)); 
-					puzzle.SetMaterialOffset(new Vector2(1.0f / (float)x * (float)j, 1.0f / (float)y * (float)i));
-					puzzle.SetMaterialScale(new Vector2(1.0f / (float)x, 1.0f / (float)y));
+					//float off = 1.0f / (float)y * 0.32f;
+					float off_x = 1.0f / (float)x * 0.32f;
+					float off_y = 1.0f / (float)y * 0.32f;
+					puzzle.SetMaterialOffset(new Vector2((1.0f / (float)x * (float)j) - off_x, (1.0f / (float)y * ((float)y - 1 -(float)i)) - off_y));
+					float scale_x = 1.0f / (float)x * 0.609f;
+					float scale_y = 1.0f / (float)y * 0.609f;
+					puzzle.SetMaterialScale(new Vector2((1.0f / (float)x) + scale_x, (1.0f / (float)y) / 0.609f));
 				}
 			}
 		}

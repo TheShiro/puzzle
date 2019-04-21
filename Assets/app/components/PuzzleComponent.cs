@@ -14,7 +14,7 @@ public class PuzzleComponent : MonoBehaviour {
 	public int leftSide;
 	public int rightSide;
 
-	public void SetID(int id) {
+	/*public void SetID(int id) {
 		this.id = id;
 	}
 
@@ -52,5 +52,5 @@ public class PuzzleComponent : MonoBehaviour {
 
 	public void SetRightSide(int t) {
 		this.rightSide = t;
-	}
+	}*/
 }

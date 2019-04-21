@@ -9,15 +9,15 @@ namespace Modules {
 
 	public class PuzzleObject : ObjectCore {
 
-		private int id;
+		//private int id;
 
 		/*
 		* 0 - none; 1 - giver; 2 - receiver
 		*/
-		private int topSide;
+		/*private int topSide;
 		private int bottomSide;
 		private int leftSide;
-		private int rightSide;
+		private int rightSide;*/
 
 		//constructor for create
 		public PuzzleObject(string nameObject, Vector3 position, int id) {
@@ -37,13 +37,13 @@ namespace Modules {
 		}
 
 		private void SetID(int id) {
-			this.id = id;
 			_component = _object.GetComponent<PuzzleComponent>();
+			_component.id = id;
 			//Debug.Log(_component);
 		}
 
 		public int GetID() {
-			return this.id;
+			return _component.id;
 		}
 
 		public void SetMaterial(string mainTex, string alpha) {
