@@ -21,11 +21,15 @@ namespace Modules {
 		private int rightSide;*/
 
 		private Image _mat;
+		private RectTransform _rt;
 
 		//constructor for create
-		public PuzzleObject(string nameObject, Vector3 position, int id) {
+		public PuzzleObject(string nameObject, Vector3 position, int id, float koeff_scale) {
 			ObjectInit(C.PREFAB + nameObject);
+			TransformInit();
+			AttachToCanvas();
 			SetTransform(position);
+			SetScale(koeff_scale);
 			SetID(id);
 			SetName("puzzle" + id);
 			MaterialInit();
@@ -50,14 +54,27 @@ namespace Modules {
 			return _component.id;
 		}
 
-		//redefinition base method
+		private void SetScale(float koeff) {
+			_rt.sizeDelta *= koeff;
+		}
+
+		//start redefinition
 		private void MaterialInit() {
 			_mat = _object.GetComponent<Image>();
 			_mat.material = new Material(Shader.Find("Puzzle/puzzle"));
 		}
 
+		private void TransformInit() {
+			_rt = _object.GetComponent<RectTransform>();
+		}
+
+		protected void SetTransform(Vector3 pos) {
+			_rt.anchoredPosition3D = pos;
+		}
+		//end redefinition
+
 		private void AttachToCanvas() {
-			//
+			_rt.parent = GameObject.Find("Canvas").GetComponent<RectTransform>();
 		}
 
 		public void SetMaterial(string mainTex, string alpha) {

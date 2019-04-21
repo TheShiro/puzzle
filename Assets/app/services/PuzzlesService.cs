@@ -19,7 +19,7 @@ namespace Services {
 					//formula getting id of puzzle
 					int id = j + (x * i) + 1;
  
-					PuzzleObject puzzle = new PuzzleObject("puzzle_UI", new Vector3(GeneratePX(),0,GeneratePZ()), id);
+					PuzzleObject puzzle = new PuzzleObject("puzzle_UI", new Vector3(GeneratePX(), GeneratePZ(), 0), id, Scale(x));
 
 					//save object
 					puzzleArray[id-1] = puzzle;
@@ -108,13 +108,22 @@ namespace Services {
 		//Generate position on x
 		private static float GeneratePX() {
 			//Random rand = new Random();
-			return Random.Range(-29.0f, -20.0f);
+			return Random.Range(0, Screen.width * 0.15f);
 		}
 
 		//Generate position on z
 		private static float GeneratePZ() {
 			//Random rand = new Random();
-			return Random.Range(-27.0f, 7.0f);
+			return Random.Range(-Screen.height * 0.5f, Screen.height * 0.3f);
+		}
+
+		private static float Scale(int x) {
+			switch(x) {
+				case 7 : return 1.0f;
+				case 10 : return 0.8f;
+				case 15 : return 0.5f;
+				default: return 1.0f;
+			}
 		}
 	}
 
