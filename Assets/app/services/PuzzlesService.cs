@@ -24,7 +24,7 @@ namespace Services {
 					//save object
 					puzzleArray[id-1] = puzzle;
 
-					Debug.Log("start id = " + id + " / x=" + x + " / y=" + y);
+					//Debug.Log("start id = " + id + " / x=" + x + " / y=" + y);
 
 					puzzle.SetMaterial(image, GetMatrixPosition(id, x, y)); 
 					//float off = 1.0f / (float)y * 0.32f;
@@ -114,7 +114,7 @@ namespace Services {
 		//Generate position on z
 		private static float GeneratePZ() {
 			//Random rand = new Random();
-			return Random.Range(-Screen.height * 0.5f, Screen.height * 0.3f);
+			return Random.Range(Screen.height * 0.1f, Screen.height * 0.8f);
 		}
 
 		private static float Scale(int x) {

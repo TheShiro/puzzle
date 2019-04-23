@@ -2,24 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Modules;
 
 public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
 	public static GameObject dragged;
 	private static float offset;
+	private static PuzzleObject obj;
+	private static RectTransform rt;
 
 	public void OnBeginDrag (PointerEventData eventData) {
 		dragged = gameObject;
-		RectTransform rt = dragged.GetComponent<RectTransform>();
-		//rt.sizeDelta = new Vector2(100, 100);
+		rt = dragged.GetComponent<RectTransform>();
 		offset = rt.sizeDelta.x / 2;
+
+		obj = new PuzzleObject(dragged.GetComponent<PuzzleComponent>().id);
 	}
 
 	public void OnDrag (PointerEventData eventData) {
-		transform.position = Input.mousePosition - new Vector3(offset, offset, 0);
+		rt.anchoredPosition3D = Input.mousePosition - new Vector3(offset, offset, 0);
 	}
 
 	public void OnEndDrag(PointerEventData eventData) {
+		obj.CheckScene();
+
+		obj = null;
+		rt = null;
 		dragged = null;
 	}
 }

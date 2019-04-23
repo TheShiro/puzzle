@@ -8,10 +8,10 @@ namespace Models {
 	public class GamesModel : ModelCore {
 
 		public string[] GetSettingScenePuzzle() {
-			db.Select(new string[] {"games.id", "puzzle.id", "puzzle.image", "game_size.x", "game_size.y"});
+			db.Select(new string[] {"games.id", "puzzle.id", "puzzle.image", "game_sizes.x", "game_sizes.y"});
 			db.From("games");
 			db.Join("puzzle ON puzzle.id = games.puzzle_id");
-			db.Join("game_size ON game_size.id = games.size_id");
+			db.Join("game_sizes ON game_sizes.id = games.size_id");
 			db.Where(new string[,] { {"games.is_end", "0", ""} });
 			db.Order("games.id", "desc");
 			db.One();
