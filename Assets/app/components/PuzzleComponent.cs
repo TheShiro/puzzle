@@ -15,4 +15,6 @@ public class PuzzleComponent : MonoBehaviour {
 	public int rightSide;
 
 	public RectTransform rt;
+
+	public int parentID;
 }

@@ -22,6 +22,7 @@ namespace Modules {
 		private int rightSide;*/
 
 		private Image _mat;
+		public PuzzleComponent _component;
 		//private RectTransform _rt;
 
 		//constructor for create
@@ -155,68 +156,132 @@ namespace Modules {
 			return 0;
 		}
 
+		public int GetParent() {
+			return _component.parentID;
+		}
+
+		public void SetParent(int id) {
+			_component.parentID = id;
+		}
+
 		/* end block get:set for type of sides*/
 
 		public void CheckScene() {
 			if(_component.topSide > 0) {
-				if(this.CheckDistance(0)) {
+				if(this.CheckDistanceTop()) {
 					Debug.Log("TRUE1");
+					ConnectTop();
 				}
 			}
 
 			if(_component.bottomSide > 0) {
-				if(this.CheckDistance(1)) {
+				if(this.CheckDistanceBottom()) {
 					Debug.Log("TRUE2");
+					ConnectBottom();
 				}
 			}
 
 			if(_component.leftSide > 0) {
-				if(this.CheckDistance(2)) {
+				if(this.CheckDistanceLeft()) {
 					Debug.Log("TRUE3");
+					ConnectLeft();
 				}
 			}
 
 			if(_component.rightSide > 0) {
-				if(this.CheckDistance(3)) {
+				if(this.CheckDistanceRight()) {
 					Debug.Log("TRUE4");
+					ConnectRight();
 				}
 			}
 		}
 
-		private bool CheckDistance(int s) {
-			PuzzleObject _oside;
-			switch(s) {
-				case 0 : _oside = new PuzzleObject(this.GetID() - StartPuzzle.sizeX); Debug.Log("TOP"); break;
-				case 1 : _oside = new PuzzleObject(this.GetID() + StartPuzzle.sizeX); Debug.Log("BOTTOM"); break;
-				case 2 : _oside = new PuzzleObject(this.GetID() - 1); Debug.Log("LEFT"); break;
-				case 3 : _oside = new PuzzleObject(this.GetID() + 1); Debug.Log("RIGHT"); break;
-				default : _oside = new PuzzleObject(this.GetID() - StartPuzzle.sizeX); Debug.Log("TOP"); break;
+		private bool CheckDistanceTop() {
+			PuzzleObject _oside = new PuzzleObject(this.GetID() - StartPuzzle.sizeX); //Debug.Log("TOP");
+
+			_component.rt.parent = _oside._component.rt; 
+
+			if(_component.rt.anchoredPosition3D.x > -(_component.rt.sizeDelta.x * 0.1f) && _component.rt.anchoredPosition3D.x < (_component.rt.sizeDelta.x * 0.1f)  
+				&& _component.rt.anchoredPosition3D.y < -(_component.rt.sizeDelta.x * 0.5f) && _component.rt.anchoredPosition3D.y > -(_component.rt.sizeDelta.x * 0.7f)) {
+				return true; 
 			}
 
-			Vector3 dist = this.GetTransform() - _oside.GetTransform();
-
-			Debug.Log(this.GetID() + " - " + this.GetTransform());
-			Debug.Log(_oside.GetID() + " - " + _oside.GetTransform());
-			Debug.Log(dist);
-			Debug.Log("---------------------");
-
-			switch(s) {
-				case 0 : if(dist.x > -(_component.rt.sizeDelta.x * 0.1f) && dist.x < (_component.rt.sizeDelta.x * 0.1f) 
-					&& dist.y < -(_component.rt.sizeDelta.x * 0.5f) && dist.y > -(_component.rt.sizeDelta.x * 0.8f)) return true; break;
-				case 1 : if(dist.x > -(_component.rt.sizeDelta.x * 0.1f) && dist.x < (_component.rt.sizeDelta.x * 0.1f) 
-					&& dist.y < (_component.rt.sizeDelta.x * 0.8f) && dist.y > (_component.rt.sizeDelta.x * 0.5f)) return true; break;
-
-				case 2 : if(dist.x > (_component.rt.sizeDelta.x * 0.5f) && dist.x < (_component.rt.sizeDelta.x * 0.8f) 
-					&& dist.y < (_component.rt.sizeDelta.x * 0.1f) && dist.y > -(_component.rt.sizeDelta.x * 0.1f)) return true; break;
-				case 3 : if(dist.x > -(_component.rt.sizeDelta.x * 0.8f) && dist.x < -(_component.rt.sizeDelta.x * 0.5f) 
-					&& dist.y < (_component.rt.sizeDelta.x * 0.1f) && dist.y > -(_component.rt.sizeDelta.x * 0.1f)) return true; break;
-			}
-
+			this.AttachToCanvas();
 			return false;
 		}
 
-		private void Connect() {
-			//
+		private bool CheckDistanceBottom() {
+			PuzzleObject _oside = new PuzzleObject(this.GetID() + StartPuzzle.sizeX); //Debug.Log("BOTTOM");
+
+			_component.rt.parent = _oside._component.rt; 
+
+			if(_component.rt.anchoredPosition3D.x > -(_component.rt.sizeDelta.x * 0.1f) && _component.rt.anchoredPosition3D.x < (_component.rt.sizeDelta.x * 0.1f) 
+					&& _component.rt.anchoredPosition3D.y < (_component.rt.sizeDelta.x * 0.7f) && _component.rt.anchoredPosition3D.y > (_component.rt.sizeDelta.x * 0.5f)) {
+				return true; 
+			}
+
+			this.AttachToCanvas();
+			return false;
+		}
+
+		private bool CheckDistanceLeft() {
+			PuzzleObject _oside = new PuzzleObject(this.GetID() - 1); //Debug.Log("LEFT");
+
+			_component.rt.parent = _oside._component.rt; 
+
+			if(_component.rt.sizeDelta.x > (_component.rt.sizeDelta.x * 0.5f) && _component.rt.sizeDelta.x < (_component.rt.sizeDelta.x * 0.7f) 
+					&& _component.rt.sizeDelta.y < (_component.rt.sizeDelta.x * 0.1f) && _component.rt.sizeDelta.y > -(_component.rt.sizeDelta.x * 0.1f)) {
+				return true; 
+			}
+
+			this.AttachToCanvas();
+			return false;
+		}
+
+		private bool CheckDistanceRight() {
+			PuzzleObject _oside = new PuzzleObject(this.GetID() + 1); //Debug.Log("RIGHT");
+
+			_component.rt.parent = _oside._component.rt; 
+
+			if(_component.rt.sizeDelta.x > -(_component.rt.sizeDelta.x * 0.7f) && _component.rt.sizeDelta.x < -(_component.rt.sizeDelta.x * 0.5f) 
+					&& _component.rt.sizeDelta.y < (_component.rt.sizeDelta.x * 0.1f) && _component.rt.sizeDelta.y > -(_component.rt.sizeDelta.x * 0.1f)) {
+				return true; 
+			}
+
+			this.AttachToCanvas();
+			return false;
+		}
+
+		private void ConnectTop() {
+			PuzzleObject _oside = new PuzzleObject(this.GetID() - StartPuzzle.sizeX);
+
+			//_component.rt.parent = _oside._component.rt;
+			this.SetTransform(new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0));
+			this.SetParent(_oside.GetParent() > 0 ? _oside.GetParent() : this.GetID() - StartPuzzle.sizeX);
+		}
+
+		private void ConnectBottom() {
+			PuzzleObject _oside = new PuzzleObject(this.GetID() + StartPuzzle.sizeX);
+
+			//_component.rt.parent = _oside._component.rt;
+			this.SetTransform(new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0));
+			this.SetParent(_oside.GetParent() > 0 ? _oside.GetParent() : this.GetID() + StartPuzzle.sizeX);
+		}
+
+		private void ConnectLeft() {
+			PuzzleObject _oside = new PuzzleObject(this.GetID() - 1);
+
+			//_component.rt.parent = _oside._component.rt;
+			this.SetTransform(new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0));
+			this.SetParent(_oside.GetParent() > 0 ? _oside.GetParent() : this.GetID() - 1);
+		}
+
+		private void ConnectRight() {
+			PuzzleObject _oside = new PuzzleObject(this.GetID() + 1);
+
+			//_component.rt.parent = _oside._component.rt;
+			this.SetTransform(new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0));
+			this.SetParent(_oside.GetParent() > 0 ? _oside.GetParent() : this.GetID() + 1);
 		}
 	}
 
