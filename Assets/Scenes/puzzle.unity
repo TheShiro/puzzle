@@ -297,8 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a5edf0e3488634cbacb1635e78d856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamesID: 0
-  puzzleID: 0
 --- !u!1 &1339386348
 GameObject:
   m_ObjectHideFlags: 0

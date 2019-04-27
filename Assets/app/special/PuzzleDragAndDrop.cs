@@ -25,7 +25,7 @@ public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler,
 			obj = new PuzzleObject(pid);
 			rt = obj._component.rt;
 		}
-		//Debug.Log(rt.anchoredPosition3D);
+		Debug.Log(obj._component.id);
 	}
 
 	public void OnDrag (PointerEventData eventData) {
