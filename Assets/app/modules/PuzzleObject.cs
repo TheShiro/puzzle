@@ -206,7 +206,13 @@ namespace Modules {
 		public bool CheckDistance(PuzzleObject _oside, int side) {
 			_component.rt.parent = _oside._component.rt; 
 
-			//Debug.Log(_component.rt.anchoredPosition3D);
+			Debug.Log("local" + _component.rt.anchoredPosition3D);
+
+			//Debug.Log("global" + Camera.main.WorldToViewportPoint (_oside._component.rt.anchoredPosition3D));
+			//Debug.Log("global" + Camera.main.WorldToViewportPoint (_component.rt.anchoredPosition3D));
+
+			Debug.Log("global" + Camera.main.WorldToViewportPoint(new PuzzleObject(1)._component.rt.anchoredPosition3D));
+			Debug.Log("global" + Camera.main.WorldToViewportPoint(new PuzzleObject(8)._component.rt.anchoredPosition3D));
 
 			switch(side) {
 				case 0 : return CheckDistanceTop(); 
@@ -247,7 +253,7 @@ namespace Modules {
 		}
 
 		private bool CheckDistanceLeft() {
-			Debug.Log((_component.rt.sizeDelta.x * 0.7f) + " > " + _component.rt.sizeDelta.x + " > " + (_component.rt.sizeDelta.x * 0.5f));
+			//Debug.Log((_component.rt.sizeDelta.x * 0.7f) + " > " + _component.rt.sizeDelta.x + " > " + (_component.rt.sizeDelta.x * 0.5f));
 
 			if((_component.rt.sizeDelta.x * 0.7f) > _component.rt.anchoredPosition3D.x && _component.rt.anchoredPosition3D.x > (_component.rt.sizeDelta.x * 0.5f)) { // axis X
 				if(_component.rt.anchoredPosition3D.y < (_component.rt.sizeDelta.x * 0.1f) && _component.rt.anchoredPosition3D.y > -(_component.rt.sizeDelta.x * 0.1f)) { // axis Y
@@ -258,7 +264,7 @@ namespace Modules {
 		}
 
 		private bool CheckDistanceRight() {
-			Debug.Log(-(_component.rt.sizeDelta.x * 0.7f) + " < " + _component.rt.anchoredPosition3D.x + " < " + -(_component.rt.sizeDelta.x * 0.5f));
+			//Debug.Log(-(_component.rt.sizeDelta.x * 0.7f) + " < " + _component.rt.anchoredPosition3D.x + " < " + -(_component.rt.sizeDelta.x * 0.5f));
 
 			if(-(_component.rt.sizeDelta.x * 0.7f) < _component.rt.anchoredPosition3D.x && _component.rt.anchoredPosition3D.x < -(_component.rt.sizeDelta.x * 0.5f)) { // axis X
 				if(_component.rt.anchoredPosition3D.y < (_component.rt.sizeDelta.x * 0.1f) && _component.rt.anchoredPosition3D.y > -(_component.rt.sizeDelta.x * 0.1f)) {  // axis Y
@@ -284,7 +290,7 @@ namespace Modules {
 
 			int id = c.GetComponent<PuzzleComponent>().id;
 
-			Debug.Log("child id" + id);
+			//Debug.Log("child id" + id);
 
 			return new PuzzleObject(id);
 		}

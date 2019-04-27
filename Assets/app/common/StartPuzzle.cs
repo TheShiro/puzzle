@@ -23,7 +23,7 @@ public class StartPuzzle : MonoBehaviour {
 
 		PuzzlesService.GeneratorPuzzles(sizeX, sizeY, gameSettings[2]);
 
-		//Debug.Log(PuzzlesService.puzzleList.Count);
+
 	}
 }
 
