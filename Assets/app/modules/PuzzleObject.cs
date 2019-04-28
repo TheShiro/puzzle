@@ -169,6 +169,11 @@ namespace Modules {
 			_component.rt.parent = par._component.rt;
 		}
 
+		public void SetParentForChilds(PuzzleObject par) {
+			_component.parentID = par._component.id;
+			_component.rt.parent = par._component.rt;
+		}
+
 		/* end block get:set for type of sides*/
 
 		public void CheckScene() {
@@ -217,9 +222,9 @@ namespace Modules {
 
 			switch(side) {
 				case 0 : return CheckDistanceTop(Camera.main.WorldToViewportPoint(_component.rt.anchoredPosition3D), Camera.main.WorldToViewportPoint(_oside._component.rt.anchoredPosition3D)); 
-				case 1 : return CheckDistanceBottom(); 
-				case 2 : return CheckDistanceLeft(); 
-				case 3 : return CheckDistanceRight(); 
+				case 1 : return CheckDistanceBottom(Camera.main.WorldToViewportPoint(_component.rt.anchoredPosition3D), Camera.main.WorldToViewportPoint(_oside._component.rt.anchoredPosition3D)); 
+				case 2 : return CheckDistanceLeft(Camera.main.WorldToViewportPoint(_component.rt.anchoredPosition3D), Camera.main.WorldToViewportPoint(_oside._component.rt.anchoredPosition3D)); 
+				case 3 : return CheckDistanceRight(Camera.main.WorldToViewportPoint(_component.rt.anchoredPosition3D), Camera.main.WorldToViewportPoint(_oside._component.rt.anchoredPosition3D)); 
 			}
 
 			return false;
@@ -284,8 +289,86 @@ namespace Modules {
 
 				}
 
+				fin_id[c] = 0;
 				for(int j = 0; j <= c; j++) {
+					if(fin_id[j] == 0) continue;
+					
+					Debug.Log("-------------------------------------------------------");
 					Debug.Log("out " + fin_id[j]);
+
+					switch(side) {
+						case 0 : test_check(side, new PuzzleObject(fin_id[j]), new PuzzleObject(fin_id[j] - StartPuzzle.sizeX)); break;
+						case 1 : test_check(side, new PuzzleObject(fin_id[j]), new PuzzleObject(fin_id[j] + StartPuzzle.sizeX)); break;
+						case 2 : test_check(side, new PuzzleObject(fin_id[j]), new PuzzleObject(fin_id[j] - 1)); break;
+						case 3 : test_check(side, new PuzzleObject(fin_id[j]), new PuzzleObject(fin_id[j] + 1)); break;
+					}
+
+					Debug.Log("-------------------------------------------------------");
+				}
+			}
+		}
+
+		private void test_check(int side, PuzzleObject one, PuzzleObject two) {
+			//one.AttachToCanvas();
+			Vector3 sub = Camera.main.WorldToViewportPoint(one._component.rt.anchoredPosition3D);
+			//one.SetParent(new PuzzleObject(one.GetID()));
+			Vector3 master = Camera.main.WorldToViewportPoint(two._component.rt.anchoredPosition3D);
+
+			PuzzleObject par = new PuzzleObject(one.GetParent());
+			Vector3 top = Camera.main.WorldToViewportPoint(par._component.rt.anchoredPosition3D);
+
+			Debug.Log("top" + top);
+			Debug.Log("sub" + sub);
+			Debug.Log("sub global" + (top + sub));
+			Debug.Log("master" + master);
+			Vector3 result = master - (top + sub) + new Vector3(0, 0, 30);
+			Debug.Log(result.x);
+
+			if(side == 0) {
+				if(-C.small_minZ > result.z && result.z > -C.small_maxZ) {
+					if(C.small_maxY > result.x && result.x > C.small_minY) {
+						Debug.Log("true");
+						one.SetParent(two);
+
+						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
+					}
+				}
+			}
+
+			if(side == 1) {
+				if(C.small_minZ < result.z && result.z < C.small_maxZ) {
+					if(C.small_maxY > result.x && result.x > C.small_minY) {
+						Debug.Log("true");
+						one.SetParent(two);
+
+						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0)) - one._component.rt.anchoredPosition3D));
+					}
+				}
+			}
+
+			if(side == 2) {
+				if(-C.small_minX > result.x && result.x > -C.small_maxX) {
+					if(C.small_maxY > result.z && result.z > C.small_minY) {
+						Debug.Log("true");
+						one.SetParent(two);
+
+						Debug.Log("top" + one._component.rt.anchoredPosition3D);
+						//Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						Debug.Log("dist" + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+
+						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+					}
+				}
+			}
+
+			if(side == 3) {
+				if(C.small_minX < result.x && result.x < C.small_maxX) {
+					if(C.small_maxY > result.z && result.z > C.small_minY) {
+						Debug.Log("true");
+						one.SetParent(two);
+
+						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+					}
 				}
 			}
 		}
@@ -308,7 +391,11 @@ namespace Modules {
 			return false;
 		}
 
-		private bool CheckDistanceBottom() {
+		private bool CheckDistanceBottom(Vector3 sub, Vector3 master) {
+			/*Debug.Log("sub" + sub);
+			Debug.Log("master" + master);
+			Debug.Log(master - sub);*/
+
 			if(_component.rt.anchoredPosition3D.x > -(_component.rt.sizeDelta.x * 0.1f) && _component.rt.anchoredPosition3D.x < (_component.rt.sizeDelta.x * 0.1f) 
 					&& _component.rt.anchoredPosition3D.y < (_component.rt.sizeDelta.x * 0.7f) && _component.rt.anchoredPosition3D.y > (_component.rt.sizeDelta.x * 0.5f)) {
 				return true; 
@@ -316,7 +403,11 @@ namespace Modules {
 			return false;
 		}
 
-		private bool CheckDistanceLeft() {
+		private bool CheckDistanceLeft(Vector3 sub, Vector3 master) {
+			/*Debug.Log("sub" + sub);
+			Debug.Log("master" + master);
+			Debug.Log(master - sub);*/
+
 			//Debug.Log((_component.rt.sizeDelta.x * 0.7f) + " > " + _component.rt.sizeDelta.x + " > " + (_component.rt.sizeDelta.x * 0.5f));
 
 			if((_component.rt.sizeDelta.x * 0.7f) > _component.rt.anchoredPosition3D.x && _component.rt.anchoredPosition3D.x > (_component.rt.sizeDelta.x * 0.5f)) { // axis X
@@ -327,7 +418,11 @@ namespace Modules {
 			return false;
 		}
 
-		private bool CheckDistanceRight() {
+		private bool CheckDistanceRight(Vector3 sub, Vector3 master) {
+			/*Debug.Log("sub" + sub);
+			Debug.Log("master" + master);
+			Debug.Log(master - sub);*/
+
 			//Debug.Log(-(_component.rt.sizeDelta.x * 0.7f) + " < " + _component.rt.anchoredPosition3D.x + " < " + -(_component.rt.sizeDelta.x * 0.5f));
 
 			if(-(_component.rt.sizeDelta.x * 0.7f) < _component.rt.anchoredPosition3D.x && _component.rt.anchoredPosition3D.x < -(_component.rt.sizeDelta.x * 0.5f)) { // axis X

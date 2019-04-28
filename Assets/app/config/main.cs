@@ -12,6 +12,14 @@ namespace Config {
 
 		public const string PREFAB = "Prefabs/";
 
+		public static float small_minX = 2.1f;
+		public static float small_maxX = 2.4f;
+
+		public static float small_minY = -9.0f;
+		public static float small_maxY = 9.0f;
+
+		public static float small_minZ = 110.0f;
+		public static float small_maxZ = 140.0f;
 	}
 
 }
