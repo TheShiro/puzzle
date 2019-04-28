@@ -309,8 +309,8 @@ namespace Modules {
 				for(int j = 0; j <= c; j++) {
 					if(fin_id[j] == 0) continue;
 					
-					Debug.Log("-------------------------------------------------------");
-					Debug.Log("out " + fin_id[j]);
+					/*Debug.Log("-------------------------------------------------------");
+					Debug.Log("out " + fin_id[j]);*/
 
 					PuzzleObject temp = new PuzzleObject(fin_id[j]);
 
@@ -335,12 +335,12 @@ namespace Modules {
 			PuzzleObject par = new PuzzleObject(one.GetParent());
 			Vector3 top = Camera.main.WorldToViewportPoint(par._component.rt.anchoredPosition3D);
 
-			Debug.Log("top" + top);
+			/*Debug.Log("top" + top);
 			Debug.Log("sub" + sub);
 			Debug.Log("sub global" + (top + sub));
-			Debug.Log("master" + master);
+			Debug.Log("master" + master);*/
 			Vector3 result = master - (top + sub) + new Vector3(0, 0, 30);
-			Debug.Log(result.x);
+			//Debug.Log(result.x);
 
 			if(side == 0) {
 				if(-C.small_minZ > result.z && result.z > -C.small_maxZ) {
@@ -348,10 +348,10 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
-						Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						/*Debug.Log("sub" + two._component.rt.anchoredPosition3D);
 						Debug.Log("this" + _component.rt.anchoredPosition3D);
 						Debug.Log("top" + one._component.rt.anchoredPosition3D);
-						Debug.Log("dist" + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
+						Debug.Log("dist" + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));*/
 
 						this.SetParentForChilds(two, (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
 						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
@@ -365,10 +365,10 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
-						Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						/*Debug.Log("sub" + two._component.rt.anchoredPosition3D);
 						Debug.Log("this" + _component.rt.anchoredPosition3D);
 						Debug.Log("top" + one._component.rt.anchoredPosition3D);
-						Debug.Log("dist" + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
+						Debug.Log("dist" + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));*/
 
 						this.SetParentForChilds(two, (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
 						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
@@ -382,10 +382,10 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
-						Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						/*Debug.Log("sub" + two._component.rt.anchoredPosition3D);
 						Debug.Log("this" + _component.rt.anchoredPosition3D);
 						Debug.Log("top" + one._component.rt.anchoredPosition3D);
-						Debug.Log("dist" + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+						Debug.Log("dist" + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));*/
 
 						this.SetParentForChilds(two, new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D);
 						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
@@ -401,10 +401,10 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
-						Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						/*Debug.Log("sub" + two._component.rt.anchoredPosition3D);
 						Debug.Log("this" + _component.rt.anchoredPosition3D);
 						Debug.Log("top" + one._component.rt.anchoredPosition3D);
-						Debug.Log("dist" + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+						Debug.Log("dist" + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));*/
 
 						this.SetParentForChilds(two, (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
 						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
