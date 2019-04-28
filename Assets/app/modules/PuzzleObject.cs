@@ -169,9 +169,25 @@ namespace Modules {
 			_component.rt.parent = par._component.rt;
 		}
 
-		public void SetParentForChilds(PuzzleObject par) {
-			_component.parentID = par._component.id;
-			_component.rt.parent = par._component.rt;
+		public void SetParentForChilds(PuzzleObject par, Vector3 offset) {
+			/*_component.parentID = par._component.id;
+			_component.rt.parent = par._component.rt;*/
+			this.SetTransform(_component.rt.anchoredPosition3D + offset);
+			Debug.Log("HERE! Connected childs");
+			Debug.Log(offset);
+
+			int c = _component.rt.childCount;
+
+			Debug.Log("puzzle " + this.GetID() + " have " + c + " childs, parent " + par.GetID());
+
+			if(c > 0) {
+				for(int j = 0; j < c; j++) {
+					//Debug.Log("child key " + j);
+					this.Child(0).SetParent(par);
+				}
+			}
+
+			this.SetParent(par);
 		}
 
 		/* end block get:set for type of sides*/
@@ -296,11 +312,13 @@ namespace Modules {
 					Debug.Log("-------------------------------------------------------");
 					Debug.Log("out " + fin_id[j]);
 
+					PuzzleObject temp = new PuzzleObject(fin_id[j]);
+
 					switch(side) {
-						case 0 : test_check(side, new PuzzleObject(fin_id[j]), new PuzzleObject(fin_id[j] - StartPuzzle.sizeX)); break;
-						case 1 : test_check(side, new PuzzleObject(fin_id[j]), new PuzzleObject(fin_id[j] + StartPuzzle.sizeX)); break;
-						case 2 : test_check(side, new PuzzleObject(fin_id[j]), new PuzzleObject(fin_id[j] - 1)); break;
-						case 3 : test_check(side, new PuzzleObject(fin_id[j]), new PuzzleObject(fin_id[j] + 1)); break;
+						case 0 : if(temp.GetTypeSide("top") != 0) test_check(side, temp, new PuzzleObject(fin_id[j] - StartPuzzle.sizeX)); break;
+						case 1 : if(temp.GetTypeSide("bottom") != 0) test_check(side, temp, new PuzzleObject(fin_id[j] + StartPuzzle.sizeX)); break;
+						case 2 : if(temp.GetTypeSide("left") != 0) test_check(side, temp, new PuzzleObject(fin_id[j] - 1)); break;
+						case 3 : if(temp.GetTypeSide("right") != 0) test_check(side, temp, new PuzzleObject(fin_id[j] + 1)); break;
 					}
 
 					Debug.Log("-------------------------------------------------------");
@@ -330,6 +348,12 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
+						Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						Debug.Log("this" + _component.rt.anchoredPosition3D);
+						Debug.Log("top" + one._component.rt.anchoredPosition3D);
+						Debug.Log("dist" + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
+
+						this.SetParentForChilds(two, (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
 						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
 					}
 				}
@@ -341,7 +365,13 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
-						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0)) - one._component.rt.anchoredPosition3D));
+						Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						Debug.Log("this" + _component.rt.anchoredPosition3D);
+						Debug.Log("top" + one._component.rt.anchoredPosition3D);
+						Debug.Log("dist" + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
+
+						this.SetParentForChilds(two, (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
+						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
 					}
 				}
 			}
@@ -352,11 +382,15 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
+						Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						Debug.Log("this" + _component.rt.anchoredPosition3D);
 						Debug.Log("top" + one._component.rt.anchoredPosition3D);
-						//Debug.Log("sub" + two._component.rt.anchoredPosition3D);
 						Debug.Log("dist" + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
 
+						this.SetParentForChilds(two, new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D);
 						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+
+						//this.SetTransform(new Vector3(100,100,0));
 					}
 				}
 			}
@@ -367,6 +401,12 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
+						Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						Debug.Log("this" + _component.rt.anchoredPosition3D);
+						Debug.Log("top" + one._component.rt.anchoredPosition3D);
+						Debug.Log("dist" + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+
+						this.SetParentForChilds(two, (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
 						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
 					}
 				}
