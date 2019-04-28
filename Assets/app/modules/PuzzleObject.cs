@@ -187,6 +187,7 @@ namespace Modules {
 				if(!this.CheckDistance(_oside, i)) {
 					this.AttachToCanvas();
 					//Debug.Log(i + " false");
+					CheckDistanceForChild(i);
 					continue; // go to next iteration
 				}
 
@@ -206,22 +207,21 @@ namespace Modules {
 		public bool CheckDistance(PuzzleObject _oside, int side) {
 			_component.rt.parent = _oside._component.rt; 
 
-			Debug.Log("local" + _component.rt.anchoredPosition3D);
+			//Debug.Log("local" + _oside._component.id);
 
 			//Debug.Log("global" + Camera.main.WorldToViewportPoint (_oside._component.rt.anchoredPosition3D));
 			//Debug.Log("global" + Camera.main.WorldToViewportPoint (_component.rt.anchoredPosition3D));
 
-			Debug.Log("global" + Camera.main.WorldToViewportPoint(new PuzzleObject(1)._component.rt.anchoredPosition3D));
-			Debug.Log("global" + Camera.main.WorldToViewportPoint(new PuzzleObject(8)._component.rt.anchoredPosition3D));
+			//Debug.Log("global" + Camera.main.WorldToViewportPoint(new PuzzleObject(1)._component.rt.anchoredPosition3D));
+			//Debug.Log("global" + Camera.main.WorldToViewportPoint(new PuzzleObject(8)._component.rt.anchoredPosition3D));
 
 			switch(side) {
-				case 0 : return CheckDistanceTop(); 
+				case 0 : return CheckDistanceTop(Camera.main.WorldToViewportPoint(_component.rt.anchoredPosition3D), Camera.main.WorldToViewportPoint(_oside._component.rt.anchoredPosition3D)); 
 				case 1 : return CheckDistanceBottom(); 
 				case 2 : return CheckDistanceLeft(); 
 				case 3 : return CheckDistanceRight(); 
 			}
 
-			//_child.AttachToCanvas();
 			return false;
 		}
 
@@ -229,18 +229,82 @@ namespace Modules {
 		private void AttachToParent(PuzzleObject par) {
 			int c = _component.rt.childCount;
 
+			Debug.Log("puzzle " + this.GetID() + " have " + c + " childs, parent " + par.GetID());
+
 			if(c > 0) {
 				for(int j = 0; j < c; j++) {
-					this.Child(j).SetParent(par);
+					//Debug.Log("child key " + j);
+					this.Child(0).SetParent(par);
 				}
 			}
 		}
 
-		private bool CheckDistanceTop() {
+		private void CheckDistanceForChild(int side) {
+			int c = _component.rt.childCount;
+			int[] child_id;
+			int[] fin_id;
+			if(c > 0) {
+				child_id = new int[c+1];
+				fin_id = new int[c+1];
+
+				for(int j = 0; j < c; j++) {
+					child_id[j] = this.Child(j).GetID();
+					fin_id[j] = this.Child(j).GetID();
+				}
+
+				child_id[c] = this.GetID();
+				fin_id[c] = this.GetID();
+
+				Debug.Log("test");
+				switch(side) {
+					case 0 : Debug.Log("TOP"); break;
+					case 1 : Debug.Log("BOTTOM"); break;
+					case 2 : Debug.Log("LEFT"); break;
+					case 3 : Debug.Log("RIGHT"); break;
+				}
+
+				for(int j = 0; j <= c; j++) {
+					int del;
+					switch(side) {
+						case 0 : del = child_id[j] - StartPuzzle.sizeX; break;
+						case 1 : del = child_id[j] + StartPuzzle.sizeX; break;
+						case 2 : del = child_id[j] - 1; break;
+						case 3 : del = child_id[j] + 1; break;
+						default : del = 0; break;
+					}
+
+					//Debug.Log("in " + child_id[j] + " del " + del);
+
+					for(int k = 0; k <= c; k++) {
+						if(child_id[k] == del) {
+							//Debug.Log("delete " + child_id[j]);
+							fin_id[j] = 0;
+						}
+					}
+
+				}
+
+				for(int j = 0; j <= c; j++) {
+					Debug.Log("out " + fin_id[j]);
+				}
+			}
+		}
+
+		private bool CheckDistanceTop(Vector3 sub, Vector3 master) {
+			// lod logic
 			if(_component.rt.anchoredPosition3D.x > -(_component.rt.sizeDelta.x * 0.1f) && _component.rt.anchoredPosition3D.x < (_component.rt.sizeDelta.x * 0.1f)  
 				&& _component.rt.anchoredPosition3D.y < -(_component.rt.sizeDelta.x * 0.5f) && _component.rt.anchoredPosition3D.y > -(_component.rt.sizeDelta.x * 0.7f)) {
 				return true; 
 			}
+			/*Debug.Log("sub" + sub);
+			Debug.Log("master" + master);
+			Debug.Log(master - sub);*/
+			// new logic
+			/*if( < -sub.x && sub.x < ) {
+				if() {
+
+				}
+			}*/
 			return false;
 		}
 
@@ -285,8 +349,8 @@ namespace Modules {
 			}
 		}
 
-		public PuzzleObject Child(int i) {
-			GameObject c = _component.rt.GetChild(i).gameObject;
+		public PuzzleObject Child(int k) {
+			GameObject c = _component.rt.GetChild(k).gameObject;
 
 			int id = c.GetComponent<PuzzleComponent>().id;
 

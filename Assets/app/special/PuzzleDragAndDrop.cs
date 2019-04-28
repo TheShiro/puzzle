@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Modules;
+//using System.Runtime.InteropServices;
 
 public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+
+	//[DllImport("user32.dll")]
+	//static extern bool SetCursorPos(int X, int Y);
 
 	public static GameObject dragged;
 	private static float offset;
@@ -25,7 +29,9 @@ public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler,
 			obj = new PuzzleObject(pid);
 			rt = obj._component.rt;
 		}
-		Debug.Log(obj._component.id);
+		//Debug.Log(obj._component.id);
+
+		//SetCursorPos((int)rt.anchoredPosition3D.x, (int)rt.anchoredPosition3D.y);
 	}
 
 	public void OnDrag (PointerEventData eventData) {
