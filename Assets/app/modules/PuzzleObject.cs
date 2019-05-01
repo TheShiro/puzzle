@@ -345,12 +345,13 @@ namespace Modules {
 			PuzzleObject par = new PuzzleObject(one.GetParent());
 			Vector3 top = Camera.main.WorldToViewportPoint(par._component.rt.anchoredPosition3D);
 
-			/*Debug.Log("top" + top);
+			Debug.Log("pid" + one.GetID());
+			Debug.Log("top" + top);
 			Debug.Log("sub" + sub);
 			Debug.Log("sub global" + (top + sub));
-			Debug.Log("master" + master);*/
+			Debug.Log("master" + master);
 			Vector3 result = master - (top + sub) + new Vector3(0, 0, 30);
-			//Debug.Log(result.x);
+			Debug.Log("result" + result);
 
 			if(side == 0) {
 				if(-C.small_minZ > result.z && result.z > -C.small_maxZ) {
@@ -358,9 +359,9 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
-						/*Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						/*Debug.Log("master" + two._component.rt.anchoredPosition3D);
 						Debug.Log("this" + _component.rt.anchoredPosition3D);
-						Debug.Log("top" + one._component.rt.anchoredPosition3D);
+						Debug.Log("sub" + one._component.rt.anchoredPosition3D);
 						Debug.Log("dist" + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));*/
 
 						this.SetParentForChilds(two, (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
@@ -375,9 +376,9 @@ namespace Modules {
 						Debug.Log("true");
 						one.SetParent(two);
 
-						/*Debug.Log("sub" + two._component.rt.anchoredPosition3D);
+						/*Debug.Log("master" + two._component.rt.anchoredPosition3D);
 						Debug.Log("this" + _component.rt.anchoredPosition3D);
-						Debug.Log("top" + one._component.rt.anchoredPosition3D);
+						Debug.Log("sub" + one._component.rt.anchoredPosition3D);
 						Debug.Log("dist" + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));*/
 
 						this.SetParentForChilds(two, (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
@@ -406,6 +407,7 @@ namespace Modules {
 			}
 
 			if(side == 3) {
+				Debug.Log(C.small_minX + " < " + result.x + " < " + C.small_maxX);
 				if(C.small_minX < result.x && result.x < C.small_maxX) {
 					if(C.small_maxY > result.z && result.z > C.small_minY) {
 						Debug.Log("true");
