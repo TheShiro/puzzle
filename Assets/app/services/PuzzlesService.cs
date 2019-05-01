@@ -125,6 +125,10 @@ namespace Services {
 				default: return 1.0f;
 			}
 		}
+
+		public static void CheckAllPiece() {
+			
+		}
 	}
 
 }

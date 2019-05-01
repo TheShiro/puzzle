@@ -160,21 +160,22 @@ namespace Modules {
 			return _component.parentID;
 		}
 
-		public void SetParent(int id) {
+		public void SetParentLocal(int id) {
 			_component.parentID = id;
 		}
 
-		public void SetParent(PuzzleObject par) {
+		public void SetParentLocal(PuzzleObject par) {
 			_component.parentID = par._component.id;
-			_component.rt.parent = par._component.rt;
+			_component.rt.SetParent(par._component.rt);
 		}
 
 		public void SetParentForChilds(PuzzleObject par, Vector3 offset) {
 			/*_component.parentID = par._component.id;
 			_component.rt.parent = par._component.rt;*/
 			this.SetTransform(_component.rt.anchoredPosition3D + offset);
+			this.SetParentLocal(par);
 			Debug.Log("HERE! Connected childs");
-			Debug.Log(offset);
+			Debug.Log("offset" + offset);
 
 			int c = _component.rt.childCount;
 
@@ -183,11 +184,11 @@ namespace Modules {
 			if(c > 0) {
 				for(int j = 0; j < c; j++) {
 					//Debug.Log("child key " + j);
-					this.Child(0).SetParent(par);
+					this.Child(0).SetParentLocal(par);
 				}
 			}
 
-			this.SetParent(par);
+			//this.SetParent(par);
 		}
 
 		/* end block get:set for type of sides*/
@@ -215,7 +216,7 @@ namespace Modules {
 				//Debug.Log(i + " true " + arr_id[i]);
 
 				this.Connect(_oside, i);
-				this.SetParent(_oside.GetParent() > 0 ? _oside.GetParent() : arr_id[i]);
+				this.SetParentLocal(_oside.GetParent() > 0 ? _oside.GetParent() : arr_id[i]);
 
 				PuzzleObject par = new PuzzleObject(this.GetParent());
 				_component.rt.parent = par._component.rt; 
@@ -255,7 +256,7 @@ namespace Modules {
 			if(c > 0) {
 				for(int j = 0; j < c; j++) {
 					//Debug.Log("child key " + j);
-					this.Child(0).SetParent(par);
+					this.Child(0).SetParentLocal(par);
 				}
 			}
 		}
@@ -326,103 +327,122 @@ namespace Modules {
 			}
 		}
 
-		private void test_check(int side, PuzzleObject one, PuzzleObject two) {
-			//one.AttachToCanvas();
-			Vector3 sub = Camera.main.WorldToViewportPoint(one._component.rt.anchoredPosition3D);
-			//one.SetParent(new PuzzleObject(one.GetID()));
+		private void test_check(int side, PuzzleObject one, PuzzleObject two/*, PuzzleObject tp*/) {
+			Vector3 sub = one._component.rt.anchoredPosition3D;
 
-			PuzzleObject two_par;
+			PuzzleObject two_par = null;
+
 			Vector3 master;
+			Vector3 master_par = new Vector3(0,0,0);
+			master = two._component.rt.anchoredPosition3D;
+
+			// if parent id > 0 then used parent of master piece to calculate global position
 			if(two.GetParent() > 0) {
 				two_par = new PuzzleObject(two.GetParent());
-				master = Camera.main.WorldToViewportPoint(two_par._component.rt.anchoredPosition3D + two._component.rt.anchoredPosition3D);
+				master_par = two_par._component.rt.anchoredPosition3D;
 
-				two = two_par;
-			} else {
-				master = Camera.main.WorldToViewportPoint(two._component.rt.anchoredPosition3D);
+				//Debug.Log("two_par" + one);
 			}
 
+			//position parent of sub piece
 			PuzzleObject par = new PuzzleObject(one.GetParent());
-			Vector3 top = Camera.main.WorldToViewportPoint(par._component.rt.anchoredPosition3D);
+			Vector3 top = par._component.rt.anchoredPosition3D;
 
-			Debug.Log("pid" + one.GetID());
+			Debug.Log("id" + one.GetID());
+			//Debug.Log("pid " + two.GetParent() + " --- two par " + (two_par._component.id ? two_par._component.id : "333"));
 			Debug.Log("top" + top);
 			Debug.Log("sub" + sub);
 			Debug.Log("sub global" + (top + sub));
-			Debug.Log("master" + master);
-			Vector3 result = master - (top + sub) + new Vector3(0, 0, 30);
+			Debug.Log("master" + master + "mid" + two.GetID());
+			Debug.Log("master par" + master_par);
+			Debug.Log("master global" + (master_par + master));
+
+			Vector3 result = (master_par + master) - (top + sub);
 			Debug.Log("result" + result);
 
 			if(side == 0) {
-				if(-C.small_minZ > result.z && result.z > -C.small_maxZ) {
-					if(C.small_maxY > result.x && result.x > C.small_minY) {
+				if((_component.rt.sizeDelta.x * 0.55f) < result.y && result.y < (_component.rt.sizeDelta.x * 0.7f)) {
+					if((_component.rt.sizeDelta.x * 0.1f) > result.x && result.x > -(_component.rt.sizeDelta.x * 0.1f)) {
 						Debug.Log("true");
-						one.SetParent(two);
-
-						/*Debug.Log("master" + two._component.rt.anchoredPosition3D);
-						Debug.Log("this" + _component.rt.anchoredPosition3D);
-						Debug.Log("sub" + one._component.rt.anchoredPosition3D);
-						Debug.Log("dist" + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));*/
+						/*one.SetParentLocal(two);
 
 						this.SetParentForChilds(two, (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
-						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
+						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));*/
+
+						if(two.GetParent() > 0) {
+							this.ConnectChild(one, two_par, result + new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0));
+						} else {
+							this.ConnectChild(one, two, result + new Vector3(0, -_component.rt.sizeDelta.x * 0.61f, 0));
+						}
 					}
 				}
 			}
 
 			if(side == 1) {
-				if(C.small_minZ < result.z && result.z < C.small_maxZ) {
-					if(C.small_maxY > result.x && result.x > C.small_minY) {
+				if(-(_component.rt.sizeDelta.x * 0.55f) > result.y && result.y > -(_component.rt.sizeDelta.x * 0.7f)) {
+					if((_component.rt.sizeDelta.x * 0.1f) > result.x && result.x > -(_component.rt.sizeDelta.x * 0.1f)) {
 						Debug.Log("true");
-						one.SetParent(two);
-
-						/*Debug.Log("master" + two._component.rt.anchoredPosition3D);
-						Debug.Log("this" + _component.rt.anchoredPosition3D);
-						Debug.Log("sub" + one._component.rt.anchoredPosition3D);
-						Debug.Log("dist" + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));*/
+						/*one.SetParent(two);
 
 						this.SetParentForChilds(two, (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
-						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));
+						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0) - one._component.rt.anchoredPosition3D));*/
+
+						if(two.GetParent() > 0) {
+							this.ConnectChild(one, two_par, result + new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0));
+						} else {
+							this.ConnectChild(one, two, result + new Vector3(0, _component.rt.sizeDelta.x * 0.61f, 0));
+						}
 					}
 				}
 			}
 
 			if(side == 2) {
-				if(-C.small_minX > result.x && result.x > -C.small_maxX) {
-					if(C.small_maxY > result.z && result.z > C.small_minY) {
+				if(-(_component.rt.sizeDelta.x * 0.55f) > result.x && result.x > -(_component.rt.sizeDelta.x * 0.7f)) {
+					if((_component.rt.sizeDelta.x * 0.1f) > result.y && result.y > -(_component.rt.sizeDelta.x * 0.1f)) {
 						Debug.Log("true");
-						one.SetParent(two);
-
-						/*Debug.Log("sub" + two._component.rt.anchoredPosition3D);
-						Debug.Log("this" + _component.rt.anchoredPosition3D);
-						Debug.Log("top" + one._component.rt.anchoredPosition3D);
-						Debug.Log("dist" + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));*/
+						/*one.SetParent(two);
 
 						this.SetParentForChilds(two, new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D);
-						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));*/
 
-						//this.SetTransform(new Vector3(100,100,0));
+						if(two.GetParent() > 0) {
+							this.ConnectChild(one, two_par, result + new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0));
+						} else {
+							this.ConnectChild(one, two, result + new Vector3(_component.rt.sizeDelta.x * 0.61f, 0, 0));
+						}
 					}
 				}
 			}
 
 			if(side == 3) {
-				Debug.Log(C.small_minX + " < " + result.x + " < " + C.small_maxX);
-				if(C.small_minX < result.x && result.x < C.small_maxX) {
-					if(C.small_maxY > result.z && result.z > C.small_minY) {
+				if((_component.rt.sizeDelta.x * 0.55f) < result.x && result.x < (_component.rt.sizeDelta.x * 0.7f)) {
+					if((_component.rt.sizeDelta.x * 0.1f) > result.y && result.y > -(_component.rt.sizeDelta.x * 0.1f)) {
 						Debug.Log("true");
-						one.SetParent(two);
+						if(two.GetParent() > 0) {
+							/*one.SetParent(two_par);
 
-						/*Debug.Log("sub" + two._component.rt.anchoredPosition3D);
-						Debug.Log("this" + _component.rt.anchoredPosition3D);
-						Debug.Log("top" + one._component.rt.anchoredPosition3D);
-						Debug.Log("dist" + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));*/
+							this.SetParentForChilds(two_par, (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+							one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));*/
+							this.ConnectChild(one, two_par, result + new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0));
+						} else {
+							/*one.SetParent(two);
 
-						this.SetParentForChilds(two, (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
-						one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+							this.SetParentForChilds(two, (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));
+							one.SetTransform(one._component.rt.anchoredPosition3D + (new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) - one._component.rt.anchoredPosition3D));*/
+
+							this.ConnectChild(one, two, result + new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0));
+						}
 					}
 				}
 			}
+		}
+
+		private void ConnectChild(PuzzleObject one, PuzzleObject two, Vector3 pos) {
+			one.SetParentLocal(two);
+
+			this.SetParentForChilds(two, pos);
+			//Debug.Log(new Vector3(-_component.rt.sizeDelta.x * 0.61f, 0, 0) + "pos" + pos);
+			one.SetTransform(one._component.rt.anchoredPosition3D + pos);
 		}
 
 		private bool CheckDistanceTop(Vector3 sub, Vector3 master) {

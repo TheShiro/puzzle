@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Modules;
+using Services;
 //using System.Runtime.InteropServices;
 
 public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
@@ -40,6 +41,7 @@ public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
 	public void OnEndDrag(PointerEventData eventData) {
 		obj.CheckScene();
+		PuzzlesService.CheckAllPiece();
 
 		obj = null;
 		rt = null;

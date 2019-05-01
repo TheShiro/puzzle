@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class ObjectCore : MonoBehaviour {
+public class ObjectCore : ScriptableObject {
 
 	private Transform _transfrorm;
 	private MeshRenderer _mesh;
