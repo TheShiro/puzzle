@@ -330,7 +330,17 @@ namespace Modules {
 			//one.AttachToCanvas();
 			Vector3 sub = Camera.main.WorldToViewportPoint(one._component.rt.anchoredPosition3D);
 			//one.SetParent(new PuzzleObject(one.GetID()));
-			Vector3 master = Camera.main.WorldToViewportPoint(two._component.rt.anchoredPosition3D);
+
+			PuzzleObject two_par;
+			Vector3 master;
+			if(two.GetParent() > 0) {
+				two_par = new PuzzleObject(two.GetParent());
+				master = Camera.main.WorldToViewportPoint(two_par._component.rt.anchoredPosition3D + two._component.rt.anchoredPosition3D);
+
+				two = two_par;
+			} else {
+				master = Camera.main.WorldToViewportPoint(two._component.rt.anchoredPosition3D);
+			}
 
 			PuzzleObject par = new PuzzleObject(one.GetParent());
 			Vector3 top = Camera.main.WorldToViewportPoint(par._component.rt.anchoredPosition3D);
