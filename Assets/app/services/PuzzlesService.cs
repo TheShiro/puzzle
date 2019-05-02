@@ -9,9 +9,11 @@ namespace Services {
 	public static class PuzzlesService {
 
 		public static PuzzleObject[] puzzleArray;
+		public static PuzzleObject[] backArray;
 
 		public static void GeneratorPuzzles(int x, int y, string image) {
 			puzzleArray = new PuzzleObject[y*x];
+			backArray = new PuzzleObject[y*x];
 			//horizontal
 			for(int i = 0; i < y; i++) {
 				//vertical
@@ -20,7 +22,6 @@ namespace Services {
 					int id = j + (x * i) + 1;
  
 					PuzzleObject puzzle = new PuzzleObject("puzzle_UI", new Vector3(GeneratePX(), GeneratePZ(), 0), id, Scale(x));
-
 					//save object
 					puzzleArray[id-1] = puzzle;
 
@@ -33,6 +34,13 @@ namespace Services {
 					puzzle.SetMaterialOffset(new Vector2((1.0f / (float)x * (float)j) - off_x, (1.0f / (float)y * ((float)y - 1 -(float)i)) - off_y));
 					float scale_x = 1.0f / (float)x * 0.609f;
 					puzzle.SetMaterialScale(new Vector2((1.0f / (float)x) + scale_x, (1.0f / (float)y) / 0.609f));
+
+					PuzzleObject puzzle_back = new PuzzleObject("puzzle_UI_back", back_position(id, x, y), id, Scale(x), "back");
+					backArray[id-1] = puzzle_back;
+					puzzle_back.SetMaterial(image, puzzle.GetTypeSide());
+					puzzle_back.SetMaterialOffset(new Vector2((1.0f / (float)x * (float)j) - off_x, (1.0f / (float)y * ((float)y - 1 -(float)i)) - off_y));
+					puzzle_back.SetMaterialScale(new Vector2((1.0f / (float)x) + scale_x, (1.0f / (float)y) / 0.609f));
+					puzzle_back.AttachToBack();
 				}
 			}
 		}
@@ -132,6 +140,23 @@ namespace Services {
 					puzzleArray[i].SetParentLocal(puzzleArray[puzzleArray[i].GetParent() - 1]);
 				}
 			}
+		}
+
+		private static Vector3 back_position(int id, int x, int y) {
+			int line = 1;
+			int pos = id;
+
+			while(pos > x) {
+				pos -= x;
+				line++;
+			}
+
+			float scale = 200.0f * 0.61f;
+
+			Debug.Log("back" + id + " pos=" + pos + " line=" + line + " scale=" + scale + "screen" + Screen.width);
+			Debug.Log("9" + (9 / 2)); // 9 4
+
+			return new Vector3(scale * pos, scale * line, 0);
 		}
 	}
 

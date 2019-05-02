@@ -37,6 +37,18 @@ namespace Modules {
 			SetName("puzzle" + id);
 			MaterialInit();
 		}
+		//constructor 2 for create
+		public PuzzleObject(string nameObject, Vector3 position, int id, float koeff_scale, string name) {
+			ObjectInit(C.PREFAB + nameObject);
+			_component = _object.GetComponent<PuzzleComponent>();
+			TransformInit();
+			AttachToCanvas();
+			SetTransform(position);
+			SetScale(koeff_scale);
+			SetID(id);
+			SetName(name + id);
+			MaterialInit();
+		}
 		//constructor for find
 		public PuzzleObject(int id) {
 			_object = GameObject.Find("puzzle" + id);
@@ -81,6 +93,10 @@ namespace Modules {
 
 		private void AttachToCanvas() {
 			_component.rt.parent = GameObject.Find("Canvas").GetComponent<RectTransform>();
+		}
+
+		public void AttachToBack() {
+			_component.rt.parent = GameObject.Find("Back").GetComponent<RectTransform>();
 		}
 
 		public void SetMaterial(string mainTex, string alpha) {
