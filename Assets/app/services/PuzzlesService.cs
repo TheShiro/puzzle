@@ -127,7 +127,11 @@ namespace Services {
 		}
 
 		public static void CheckAllPiece() {
-			
+			for(int i = 0; i < puzzleArray.Length; i++) {
+				if(puzzleArray[i].GetParent() > 0) {
+					puzzleArray[i].SetParentLocal(puzzleArray[puzzleArray[i].GetParent() - 1]);
+				}
+			}
 		}
 	}
 
