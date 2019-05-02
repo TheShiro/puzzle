@@ -24,15 +24,11 @@ public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler,
 		obj = new PuzzleObject(dragged.GetComponent<PuzzleComponent>().id);
 
 		int pid = obj.GetParent();
-		//Debug.Log(pid);
-		//Debug.Log(rt.anchoredPosition3D);
+
 		if(pid > 0) {
 			obj = new PuzzleObject(pid);
 			rt = obj._component.rt;
 		}
-		//Debug.Log(obj._component.id);
-
-		//SetCursorPos((int)rt.anchoredPosition3D.x, (int)rt.anchoredPosition3D.y);
 	}
 
 	public void OnDrag (PointerEventData eventData) {
