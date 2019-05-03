@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Controller;
 
-public class MenuController : ControllerCore {
+namespace Front.Controllers {
 
-	public void actionMain() {
-		this.Render("Main");
+	public class MenuController : ControllerCore {
+
+		public void actionMain() {
+			this.Render("Main");
+		}
+
+		public void actionTheme() {
+			this.Render("Theme");
+		}
+
+		public void actionPuzzle() {
+			this.Render("Puzzle");
+		}
 	}
 
-	public void actionTheme() {
-		this.Render("Theme");
-	}
-
-	public void actionPuzzle() {
-		this.Render("Puzzle");
-	}
 }

@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Controller;
 
-public class PuuseController : MonoBehaviour {
+namespace Front.Controllers {
 
-	// Use this for initialization
-	void Start () {
-		
+	public class PuuseController : ControllerCore {
+
+		public void actionPause() {
+			this.Render("Pause");
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }
