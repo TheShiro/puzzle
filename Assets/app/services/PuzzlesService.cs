@@ -41,6 +41,7 @@ namespace Services {
 					//puzzle_back.SetMaterialOffset(new Vector2((1.0f / (float)x * (float)j) - off_x, (1.0f / (float)y * ((float)y - 1 -(float)i)) - off_y));
 					//puzzle_back.SetMaterialScale(new Vector2((1.0f / (float)x) + scale_x, (1.0f / (float)y) / 0.609f));
 					puzzle_back.AttachToBack();
+					puzzle_back.SetTransform(back_position(id, x, y));
 				}
 			}
 		}
@@ -143,7 +144,7 @@ namespace Services {
 		}
 
 		private static Vector3 back_position(int id, int x, int y) {
-			int line = 1;
+			float line = 1;
 			int pos = id;
 
 			while(pos > x) {
@@ -156,9 +157,15 @@ namespace Services {
 			Debug.Log("back" + id + " pos=" + pos + " line=" + line + " scale=" + scale + "screen" + Screen.width);
 			Debug.Log("9" + (9 / 2)); // 9 4
 			int center = y / 2;
-			Debug.Log("y" + y + " ");
+			int sh = Screen.height / 2;
+			if(line <= center) {
+				line = center - line + 0.5f;
+			} else {
+				line = -(line - center) + 0.5f;
+			}
+			Debug.Log("y" + y + " line" + line + " posY" + (scale * line));
 
-			return new Vector3(scale * pos, scale * line, 0);
+			return new Vector3(scale * pos - Screen.width * 0.2f, scale * line, 0);
 		}
 	}
 
