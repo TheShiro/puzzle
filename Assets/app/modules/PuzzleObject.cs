@@ -171,6 +171,8 @@ namespace Modules {
 
 			return 0;
 		}
+		
+		/* end block get:set for type of sides*/
 
 		public int GetParent() {
 			return _component.parentID;
@@ -206,8 +208,6 @@ namespace Modules {
 
 			//this.SetParent(par);
 		}
-
-		/* end block get:set for type of sides*/
 
 		public void CheckScene() {
 			int[] arr_id = new int[4];

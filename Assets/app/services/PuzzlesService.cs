@@ -37,9 +37,9 @@ namespace Services {
 
 					PuzzleObject puzzle_back = new PuzzleObject("puzzle_UI_back", back_position(id, x, y), id, Scale(x), "back");
 					backArray[id-1] = puzzle_back;
-					puzzle_back.SetMaterial(image, puzzle.GetTypeSide());
-					puzzle_back.SetMaterialOffset(new Vector2((1.0f / (float)x * (float)j) - off_x, (1.0f / (float)y * ((float)y - 1 -(float)i)) - off_y));
-					puzzle_back.SetMaterialScale(new Vector2((1.0f / (float)x) + scale_x, (1.0f / (float)y) / 0.609f));
+					puzzle_back.SetMaterial("back", puzzle.GetTypeSide());
+					//puzzle_back.SetMaterialOffset(new Vector2((1.0f / (float)x * (float)j) - off_x, (1.0f / (float)y * ((float)y - 1 -(float)i)) - off_y));
+					//puzzle_back.SetMaterialScale(new Vector2((1.0f / (float)x) + scale_x, (1.0f / (float)y) / 0.609f));
 					puzzle_back.AttachToBack();
 				}
 			}
