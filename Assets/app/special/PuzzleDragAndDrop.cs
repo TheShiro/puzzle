@@ -15,32 +15,48 @@ public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler,
 	private static float offset;
 	private static PuzzleObject obj;
 	private static RectTransform rt;
+	public bool enabled = true;
 
 	public void OnBeginDrag (PointerEventData eventData) {
-		dragged = gameObject;
-		rt = dragged.GetComponent<RectTransform>();
-		offset = rt.sizeDelta.x / 2;
+		if(enabled) {
+			dragged = gameObject;
+			rt = dragged.GetComponent<RectTransform>();
+			offset = rt.sizeDelta.x / 2;
 
-		obj = new PuzzleObject(dragged.GetComponent<PuzzleComponent>().id);
+			obj = new PuzzleObject(dragged.GetComponent<PuzzleComponent>().id);
 
-		int pid = obj.GetParent();
+			int pid = obj.GetParent();
 
-		if(pid > 0) {
-			obj = new PuzzleObject(pid);
-			rt = obj._component.rt;
+			if(pid > 0) {
+				obj = new PuzzleObject(pid);
+				rt = obj._component.rt;
+			}
+
+			enabled = GameObject.Find("puzzle" + obj.GetID()).GetComponent<PuzzleDragAndDrop>().enabled;
 		}
 	}
 
 	public void OnDrag (PointerEventData eventData) {
-		rt.anchoredPosition3D = Input.mousePosition - new Vector3(offset, offset, 0);
+		if(enabled) {
+			rt.anchoredPosition3D = Input.mousePosition - new Vector3(offset, offset, 0);
+		}
 	}
 
 	public void OnEndDrag(PointerEventData eventData) {
-		obj.CheckScene();
-		PuzzlesService.CheckAllPiece();
+		if(enabled) {
+			//obj.CheckScene();
+			//PuzzlesService.CheckAllPiece();
 
-		obj = null;
-		rt = null;
-		dragged = null;
+			if(PuzzlesService.CheckBackPlace(obj.GetID())) {
+				enabled = !enabled;
+			} else {
+				obj.CheckScene();
+				PuzzlesService.CheckAllPiece();
+			}
+
+			obj = null;
+			rt = null;
+			dragged = null;
+		}
 	}
 }

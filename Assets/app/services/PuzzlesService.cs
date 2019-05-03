@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Modules;
 using Models;
+using Main;
 
 namespace Services {
 
@@ -139,6 +140,8 @@ namespace Services {
 			for(int i = 0; i < puzzleArray.Length; i++) {
 				if(puzzleArray[i].GetParent() > 0) {
 					puzzleArray[i].SetParentLocal(puzzleArray[puzzleArray[i].GetParent() - 1]);
+				} else {
+					puzzleArray[i].AttachToCanvas();
 				}
 			}
 		}
@@ -154,18 +157,38 @@ namespace Services {
 
 			float scale = 200.0f * Scale(x) * 0.61f;
 
-			Debug.Log("back" + id + " pos=" + pos + " line=" + line + " scale=" + scale + "screen" + Screen.width);
-			Debug.Log("9" + (9 / 2)); // 9 4
+			//Debug.Log("back" + id + " pos=" + pos + " line=" + line + " scale=" + scale + "screen" + Screen.width);
+			//Debug.Log("9" + (9 / 2)); // 9 4
 			int center = y / 2;
-			int sh = Screen.height / 2;
+
+			// relative to the center
 			if(line <= center) {
 				line = center - line + 0.5f;
 			} else {
 				line = -(line - center) + 0.5f;
 			}
-			Debug.Log("y" + y + " line" + line + " posY" + (scale * line));
+			//Debug.Log("y" + y + " line" + line + " posY" + (scale * line));
 
 			return new Vector3(scale * pos - Screen.width * 0.2f, scale * line, 0);
+		}
+
+		public static bool CheckBackPlace(int id) {
+			backArray[id - 1].AttachToCanvas();
+			Vector3 back_pos = backArray[id - 1]._component.rt.anchoredPosition3D;
+			backArray[id - 1].AttachToBack();
+
+			Vector3 puzzle_pos = puzzleArray[id - 1]._component.rt.anchoredPosition3D;
+
+			Vector3 res = back_pos - puzzle_pos;
+
+			if(-(20.0f * Scale(StartPuzzle.sizeX)) < res.x && res.x < (20.0f * Scale(StartPuzzle.sizeX))) {
+				if(-(20.0f * Scale(StartPuzzle.sizeX)) < res.y && res.y < (20.0f * Scale(StartPuzzle.sizeX))) {
+					puzzleArray[id - 1].SetTransform(back_pos);
+					return true;
+				}
+			}
+
+			return false;
 		}
 	}
 

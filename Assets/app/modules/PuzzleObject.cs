@@ -91,7 +91,7 @@ namespace Modules {
 		}
 		//end redefinition
 
-		private void AttachToCanvas() {
+		public void AttachToCanvas() {
 			_component.rt.parent = GameObject.Find("Canvas").GetComponent<RectTransform>();
 		}
 
