@@ -151,10 +151,12 @@ namespace Services {
 				line++;
 			}
 
-			float scale = 200.0f * 0.61f;
+			float scale = 200.0f * Scale(x) * 0.61f;
 
 			Debug.Log("back" + id + " pos=" + pos + " line=" + line + " scale=" + scale + "screen" + Screen.width);
 			Debug.Log("9" + (9 / 2)); // 9 4
+			int center = y / 2;
+			Debug.Log("y" + y + " ");
 
 			return new Vector3(scale * pos, scale * line, 0);
 		}
