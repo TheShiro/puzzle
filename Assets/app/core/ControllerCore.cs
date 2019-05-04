@@ -7,7 +7,7 @@ using Front.Views.Pause;
 
 namespace Controller {
 
-	public class ControllerCore {
+	public class ControllerCore : MonoBehaviour {
 
 		protected ViewCore render;
 
@@ -19,6 +19,8 @@ namespace Controller {
 			render = new MainView();
 			render.Render();
 		}
+
+
 	}
 
 }

@@ -10,6 +10,7 @@ namespace Config {
 
 		public const string ALPHA = TEXTURE + "Alpha/";
 		public const string NORMAL = TEXTURE + "NormalMaps/";
+		public const string UI = TEXTURE + "UI/";
 
 		public const string PREFAB = "Prefabs/";
 	}
