@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Template : MonoBehaviour {
+namespace Front.Models {
 
-	//public void
+	public class SettingModel {
+
+		
+	}
+
 }

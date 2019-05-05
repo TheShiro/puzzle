@@ -22,7 +22,7 @@ namespace Router {
 				case "index" : pc.actionIndex(); break;
 				case "quit" : pc.actionQuit(); break;
 				case "menu" : pc.actionMenu(); break;
-				case "setting" : pc.actionSetting(); break;
+				//case "setting" : pc.actionSetting(); break;
 				case "continue" : pc.actionContinue(); break;
 			}
 		}
