@@ -24,6 +24,7 @@ namespace DB {
 		//public Text text;
 
 		private static SqliteConnection SetConnection() {
+			//_connect = null;
 			if(_connect == null) {
 				path = Application.dataPath + DBConfig.DB_NAME;
 				_connect = new SqliteConnection("Data Source=" + path);
@@ -41,11 +42,13 @@ namespace DB {
 		public void Query() {
 			SetConnection();
 
-			//Debug.Log("Query = \"" + _query + "\"");
+			Debug.Log("Query = \"" + _query + "\"");
 			_command = new SqliteCommand(_query, _connect);
 			//Debug.Log(_command);
 			_reader = _command.ExecuteReader();
 			//Debug.Log(_reader);
+
+			//_connect.Close();
 		}
 
 		public void Select(string[] s) {
@@ -62,6 +65,29 @@ namespace DB {
 			_query += " ";
 		}
 
+		public void Insert(string table) {
+			_query = "insert into ";
+			_query += table;
+			_query += " ";
+		}
+
+		public void Update(string table) {
+			_query = "update ";
+			_query += table;
+			_query += " ";
+		}
+
+		public void Set(string[,] s) {
+			_query += " set ";
+
+			for(int i = 0; i < s.GetLength(0); i++) {
+				//_query += (s[i,2] == "text") ?  " '" + s[i,0] + "' like '" + s[i,1] + "'," : " " + s[i,0] + " = " + s[i,1] + " and";
+				_query += " " + s[i,0] + " = '" + s[i,1] + "',";//this.smb_decode(s[i,2], s[i,0], s[i,1]) + " ,";
+			}
+
+			_query = _query.Remove(_query.Length - 1);
+		}
+
 		public void From(string table) {
 			_query += " from " + table + " ";
 		}
@@ -75,7 +101,7 @@ namespace DB {
 
 			for(int i = 0; i < s.GetLength(0); i++) {
 				//_query += (s[i,2] == "text") ?  " '" + s[i,0] + "' like '" + s[i,1] + "'," : " " + s[i,0] + " = " + s[i,1] + " and";
-				_query += this.smb_decode(s[i,2], s[i,0], s[i,1]);
+				_query += this.smb_decode(s[i,2], s[i,0], s[i,1]) + " and";
 			}
 
 			_query = _query.Remove(_query.Length - 3);
@@ -94,7 +120,7 @@ namespace DB {
 		}
 
 		public void One() {
-			SetConnection();
+			//SetConnection();
 
 			Limit("1");
 			Query();
@@ -106,6 +132,10 @@ namespace DB {
 			for(int i = 0; i < selectCount; i++) {
 				_result[0,i] = _reader[i].ToString();
 			}
+
+			_connect.Close();
+    		_command.Dispose();
+    		_connect = null;
 		}
 
 		public string[,] GetResult() {
@@ -113,22 +143,38 @@ namespace DB {
 		}
 
 		public void All() {
-			SetConnection();
+			//SetConnection();
 
 			Query();
 
-			//Debug.Log(_reader);
-
+			Debug.Log(_reader);
+			_result = new string[6,1];
+			int i = 0;
 			while(_reader.Read()) {
-				Debug.Log(_reader[1]);
+				//Debug.Log(_reader[0]);
+				_result[i,0] = _reader[0].ToString();
+				i++;
 			}
+
+			_connect.Close();
+    		_command.Dispose();
+    		_connect = null;
+		}
+
+		public void Go() {
+			//SetConnection();
+			Query();
+
+			_connect.Close();
+    		_command.Dispose();
+    		_connect = null;
 		}
 
 		private string smb_decode(string smb, string field, string val) {
 			switch(smb) {
-				case "text": return " '" + field + "' like '" + val + "' and";
-				case "not": return " " + field + " <> " + val + " and";
-				default: return " " + field + " = " + val + " and";
+				case "text": return " '" + field + "' like '" + val + "' ";
+				case "not": return " " + field + " <> " + val + " ";
+				default: return " " + field + " = " + val + " ";
 			}
 		}
 	}

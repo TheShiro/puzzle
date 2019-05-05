@@ -8,7 +8,7 @@ namespace Router {
 	public class FrontRouter {
 
 		public void Route(string controller, string action) {
-			Debug.Log("route");
+			//Debug.Log("route");
 
 			switch(controller) {
 				case "pause" : PauseStart(action); break;
