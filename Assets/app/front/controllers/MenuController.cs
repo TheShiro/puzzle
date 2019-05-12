@@ -13,16 +13,17 @@ namespace Front.Controllers {
 			pack.SetActive(!pack.active);
 		}
 
-		public void actionPuzzle() {
-			this.Render("Puzzle");
+		public void actionPuzzle(GameObject pack) {
+			pack.SetActive(!pack.active);
+			//list.SetActive(!list.active);
 		}
 
-		public void actionStart() {
-			//this.Render("Puzzle");
+		public void actionStart(string name) {
+			GameModel model = new GameModel();
 		}
 
-		public void actionAchievement() {
-			//this.Render("Puzzle");
+		public void actionAchievement(GameObject panel) {
+			panel.SetActive(!panel.active);
 		}
 
 		public void actionQuit() {

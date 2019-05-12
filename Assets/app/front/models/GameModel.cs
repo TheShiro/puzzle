@@ -21,6 +21,10 @@ namespace Front.Models {
 		public void Break() {
 			
 		}
+
+		public void Set() {
+			
+		}
 	}
 
 }
