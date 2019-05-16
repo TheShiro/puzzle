@@ -22,8 +22,10 @@ namespace Front.Models {
 			
 		}
 
-		public void Set() {
-			
+		public void Set(int pid, int size) {
+			db.Insert("games");
+			db.Set(new string[,] { {"puzzle_id", "" + pid}, {"size_id", "" + size} });
+			db.Go();
 		}
 	}
 

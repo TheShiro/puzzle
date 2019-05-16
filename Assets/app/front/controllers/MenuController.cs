@@ -13,13 +13,20 @@ namespace Front.Controllers {
 			pack.SetActive(!pack.active);
 		}
 
-		public void actionPuzzle(GameObject pack) {
-			pack.SetActive(!pack.active);
-			//list.SetActive(!list.active);
+		public void actionPuzzle(int id) {
+			GameObject cnv = GameObject.Find("Canvas");
 		}
 
 		public void actionStart(string name) {
+			GameObject size = GameObject.Find("Canvas").transform.Find("main").Find("PuzzlePanel").Find("size").gameObject;
+			Debug.Log(size.GetComponent<Dropdown>().value);
+
 			GameModel model = new GameModel();
+			PuzzleModel pm = new PuzzleModel();
+
+			pm.GetByName(name);
+
+			model.Set(pm.id, size.GetComponent<Dropdown>().value + 1);
 		}
 
 		public void actionAchievement(GameObject panel) {
