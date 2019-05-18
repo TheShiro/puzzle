@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Controller;
 using Front.Models;
+using Front.Controllers;
 
 namespace Front.Controllers {
 
@@ -57,6 +58,9 @@ namespace Front.Controllers {
 			Debug.Log(model.fullscreen);*/
 
 			setting.SetActive(!setting.active);
+
+			SettingService ss = new SettingService();
+			ss.SetSetting();
 		}
 
 		public void actionContinue() {

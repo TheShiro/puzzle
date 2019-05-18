@@ -2,15 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SettingService : MonoBehaviour {
+namespace Front.Controllers {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public class SettingService : MonoBehaviour {
+
+		public void SetSetting() {
+			this.SetMusicSetting();
+			this.SetSoundSetting();
+			this.SetMuteSetting();
+			this.SetMouseSetting();
+			this.SetResolutionSetting();
+			this.SetScreenSetting();
+		}
+
+		private void SetMusicSetting() {
+
+		}
+
+		private void SetSoundSetting() {
+			
+		}
+
+		private void SetMuteSetting() {
+			
+		}
+
+		private void SetMouseSetting() {
+			
+		}
+
+		private void SetResolutionSetting() {
+			
+		}
+
+		private void SetScreenSetting() {
+			
+		}
 	}
 }

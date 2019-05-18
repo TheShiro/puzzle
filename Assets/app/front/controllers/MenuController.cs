@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Controller;
 using Front.Models;
+using Front.Controllers;
 
 namespace Front.Controllers {
 
