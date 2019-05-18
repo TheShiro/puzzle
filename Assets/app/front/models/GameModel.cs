@@ -24,7 +24,7 @@ namespace Front.Models {
 
 		public void Set(int pid, int size) {
 			db.Insert("games");
-			db.Values(new string[] {"" + pid, "0", "0", "0", "0", "1"});
+			db.Values(new string[] {"" + pid, "0", "0", "0", "0", "" + size});
 			db.Go();
 		}
 	}

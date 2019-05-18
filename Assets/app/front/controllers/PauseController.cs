@@ -25,10 +25,12 @@ namespace Front.Controllers {
 		}
 
 		public void actionQuit() {
+			this.save_progress();
 			Application.Quit();
 		}
 
 		public void actionMenu() {
+			this.save_progress();
 			Application.LoadLevel(0);
 		}
 
@@ -80,6 +82,10 @@ namespace Front.Controllers {
 
 			setting.SetActive(false);*/
 			this.actionSetting(setting);
+		}
+
+		private void save_progress() {
+
 		}
 	}
 

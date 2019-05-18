@@ -14,19 +14,40 @@ namespace Front.Controllers {
 		}
 
 		public void actionPuzzle(int id) {
-			GameObject cnv = GameObject.Find("Canvas");
+			GameObject pp = GameObject.Find("Canvas").transform.Find("main").Find("PuzzlePanel").gameObject;
+			GameObject list = GameObject.Find("Canvas").transform.Find("main").Find("PuzzlePanel").Find("puzzleList").gameObject;
+			GameObject pzl = GameObject.Find("Canvas").transform.Find("main").Find("PuzzlePanel").Find("puzzleList").Find("" + id).gameObject;
+			//Debug.Log(pzl);
+
+			for(int i = 0; i < list.transform.childCount; i++) {
+				list.transform.GetChild(i).gameObject.SetActive(false);
+			}
+			
+			pp.SetActive(true);
+			pzl.SetActive(true);
 		}
 
 		public void actionStart(string name) {
 			GameObject size = GameObject.Find("Canvas").transform.Find("main").Find("PuzzlePanel").Find("size").gameObject;
 			Debug.Log(size.GetComponent<Dropdown>().value);
+			int sz = size.GetComponent<Dropdown>().value + 1;
 
 			GameModel model = new GameModel();
 			PuzzleModel pm = new PuzzleModel();
 
 			pm.GetByName(name);
 
-			model.Set(pm.id, size.GetComponent<Dropdown>().value + 1);
+			Debug.Log(pm.low);
+			Debug.Log(pm.mid);
+			Debug.Log(pm.high);
+
+			if(sz == 3 && pm.mid == 0) {
+				GameObject warning = GameObject.Find("Canvas").transform.Find("main").Find("PuzzlePanel").Find("Warning").gameObject;
+				warning.SetActive(true);
+			} else {
+				model.Set(pm.id, sz);
+				Application.LoadLevel(1);
+			}
 		}
 
 		public void actionAchievement(GameObject panel) {
