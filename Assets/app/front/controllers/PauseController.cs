@@ -34,6 +34,10 @@ namespace Front.Controllers {
 			Application.LoadLevel(0);
 		}
 
+		public void actionWin() {
+			Application.LoadLevel(0);
+		}
+
 		public void actionSetting(GameObject setting) {
 			SettingModel model = new SettingModel();
 			model.Load();

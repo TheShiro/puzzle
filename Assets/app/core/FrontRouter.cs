@@ -12,6 +12,16 @@ namespace Router {
 
 			switch(controller) {
 				case "pause" : PauseStart(action); break;
+				case "win" : WinStart(action); break;
+			}
+		}
+
+		public void Route(string controller) {
+			//Debug.Log("route");
+
+			switch(controller) {
+				case "pause" : PauseStart("index"); break;
+				case "win" : WinStart("index"); break;
 			}
 		}
 
@@ -24,6 +34,14 @@ namespace Router {
 				case "menu" : pc.actionMenu(); break;
 				//case "setting" : pc.actionSetting(); break;
 				case "continue" : pc.actionContinue(); break;
+			}
+		}
+
+		private void WinStart(string action) {
+			WinController wc = new WinController();
+
+			switch(action) {
+				case "index" : wc.actionIndex(); break;
 			}
 		}
 	}

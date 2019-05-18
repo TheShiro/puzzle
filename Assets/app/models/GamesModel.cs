@@ -8,7 +8,7 @@ namespace Models {
 	public class GamesModel : ModelCore {
 
 		public string[] GetSettingScenePuzzle() {
-			db.Select(new string[] {"games.id", "puzzle.id", "puzzle.image", "game_sizes.x", "game_sizes.y"});
+			db.Select(new string[] {"games.id", "puzzle.id", "puzzle.image", "game_sizes.x", "game_sizes.y", "games.size_id"});
 			db.From("games");
 			db.Join("puzzle ON puzzle.id = games.puzzle_id");
 			db.Join("game_sizes ON game_sizes.id = games.size_id");
@@ -18,7 +18,14 @@ namespace Models {
 
 			string[,] res = db.GetResult();
 
-			return new string[]{res[0,0], res[0,1], res[0,2], res[0,3], res[0,4]};
-		} 
+			return new string[]{res[0,0], res[0,1], res[0,2], res[0,3], res[0,4], res[0,5]};
+		}
+
+		public void SaveEndGame(int gid) {
+			db.Update("games");
+			db.Set(new string[,] { {"is_end", "1"} });
+			db.Where(new string[,] { {"id", "" + gid, ""} });
+			db.Go();
+		}
 	}
 }

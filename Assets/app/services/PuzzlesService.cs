@@ -190,6 +190,38 @@ namespace Services {
 
 			return false;
 		}
+
+		public static void Disabled(int id) {
+			Debug.Log(puzzleArray[id - 1]._component.rt.gameObject);
+
+			GameObject p = puzzleArray[id - 1]._component.rt.gameObject;
+
+			p.GetComponent<PuzzleDragAndDrop>().enabled = false;
+
+			for(int j = 0; j < p.transform.childCount; j++) {
+				p.transform.GetChild(j).GetComponent<PuzzleDragAndDrop>().enabled = false;
+			}
+		}
+
+		public static bool Assemble() {
+			for(int i = 0; i < puzzleArray.Length; i++) {
+				if(puzzleArray[i]._component.rt.gameObject.GetComponent<PuzzleDragAndDrop>().enabled == true) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		public static void GameEnd(int pid, int size) {
+			PuzzleModel pm = new PuzzleModel();
+
+			switch(size) {
+				case 1 : pm.SaveEndGame(pid, "low"); break;
+				case 2 : pm.SaveEndGame(pid, "mid"); break;
+				case 3 : pm.SaveEndGame(pid, "high"); break;
+			}
+		}
 	}
 
 }

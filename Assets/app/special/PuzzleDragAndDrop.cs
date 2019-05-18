@@ -49,6 +49,8 @@ public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
 			if(PuzzlesService.CheckBackPlace(obj.GetID())) {
 				enabled = !enabled;
+				//Debug.Log(enabled);
+				PuzzlesService.Disabled(obj.GetID());
 			} else {
 				obj.CheckScene();
 				PuzzlesService.CheckAllPiece();

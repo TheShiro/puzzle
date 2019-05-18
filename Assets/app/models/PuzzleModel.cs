@@ -78,5 +78,12 @@ namespace Models {
 
 			return "";
 		}
+
+		public void SaveEndGame(int pid, string size) {
+			db.Update("puzzle");
+			db.Set(new string[,] { {size, "1"} });
+			db.Where(new string[,] { {"id", "" + pid, ""} });
+			db.Go();
+		}
 	}
 }

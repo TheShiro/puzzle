@@ -16,6 +16,12 @@ namespace Services {
 
 			return settings;
 		}
+
+		public static void GameEnd(int gid) {
+			GamesModel gm = new GamesModel();
+
+			gm.SaveEndGame(gid);
+		}
 	}
 
 }
