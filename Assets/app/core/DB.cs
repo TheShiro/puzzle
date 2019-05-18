@@ -88,6 +88,17 @@ namespace DB {
 			_query = _query.Remove(_query.Length - 1);
 		}
 
+		public void Values(string[] s) {
+			_query += " values (null";
+
+			for(int i = 0; i < s.GetLength(0); i++) {
+				_query += ", '" + s[i] + "'";
+			}
+
+			_query += ") ";
+			//_query = _query.Remove(_query.Length - 1);
+		}
+
 		public void From(string table) {
 			_query += " from " + table + " ";
 		}
@@ -172,7 +183,7 @@ namespace DB {
 
 		private string smb_decode(string smb, string field, string val) {
 			switch(smb) {
-				case "text": return " '" + field + "' like '" + val + "' ";
+				case "text": return " " + field + " like '" + val + "' ";
 				case "not": return " " + field + " <> " + val + " ";
 				default: return " " + field + " = " + val + " ";
 			}
