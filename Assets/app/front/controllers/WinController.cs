@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Controller;
 using Front.Models;
+using Services;
 
 namespace Front.Controllers {
 
@@ -20,6 +21,8 @@ namespace Front.Controllers {
 				win.SetActive(true);
 				win.GetComponent<RectTransform>().SetAsLastSibling();
 			}
+
+			SaveService.DeleteSave();
 		}
 	}
 

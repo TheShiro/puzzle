@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Controller;
 using Front.Models;
 using Front.Controllers;
+using Services;
 
 namespace Front.Controllers {
 
@@ -27,12 +28,14 @@ namespace Front.Controllers {
 
 		public void actionQuit() {
 			this.save_progress();
+
 			Application.Quit();
 		}
 
 		public void actionMenu() {
 			this.save_progress();
-			Application.LoadLevel(0);
+			
+			//Application.LoadLevel(0);
 		}
 
 		public void actionWin() {
@@ -93,7 +96,9 @@ namespace Front.Controllers {
 		}
 
 		private void save_progress() {
-
+			for(int i = 0; i < PuzzlesService.puzzleArray.Length; i++) {
+				SaveService.SetSave(PuzzlesService.puzzleArray[i]);
+			}
 		}
 	}
 

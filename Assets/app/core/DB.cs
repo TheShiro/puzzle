@@ -77,6 +77,12 @@ namespace DB {
 			_query += " ";
 		}
 
+		public void Delete(string table) {
+			_query = "delete from ";
+			_query += table;
+			_query += " ";
+		}
+
 		public void Set(string[,] s) {
 			_query += " set ";
 

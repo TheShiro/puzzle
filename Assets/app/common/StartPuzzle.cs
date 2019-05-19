@@ -16,6 +16,7 @@ namespace Main {
 		public static int sizeY;
 
 		public int size;
+		public int is_break;
 
 		void Start () {
 			string[] gameSettings = GameService.GetSettings();
@@ -24,8 +25,15 @@ namespace Main {
 			sizeX = Int32.Parse(gameSettings[3]);
 			sizeY = Int32.Parse(gameSettings[4]);
 			this.size = Int32.Parse(gameSettings[5]);
+			this.is_break = Int32.Parse(gameSettings[6]);
 
 			PuzzlesService.GeneratorPuzzles(sizeX, sizeY, gameSettings[2]);
+
+			if(is_break == 1) {
+				for(int i = 0; i < PuzzlesService.puzzleArray.Length; i++) {
+					SaveService.GetSave(PuzzlesService.puzzleArray[i]);
+				}
+			}
 
 			StartCoroutine("finished");
 		}
