@@ -19,6 +19,8 @@ public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
 	public void OnBeginDrag (PointerEventData eventData) {
 		if(enabled) {
+			GameObject.Find("Click up").gameObject.GetComponent<AudioSource>().Play();
+
 			dragged = gameObject;
 			rt = dragged.GetComponent<RectTransform>();
 			offset = rt.sizeDelta.x / 2;
@@ -44,6 +46,8 @@ public class PuzzleDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
 	public void OnEndDrag(PointerEventData eventData) {
 		if(enabled) {
+			GameObject.Find("Click down").gameObject.GetComponent<AudioSource>().Play();
+
 			//obj.CheckScene();
 			//PuzzlesService.CheckAllPiece();
 
