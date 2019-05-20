@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Controller;
 using Front.Models;
 using Front.Controllers;
+//using Models;
 
 namespace Front.Controllers {
 
@@ -80,8 +81,13 @@ namespace Front.Controllers {
 			setting.SetActive(!setting.active);
 		}
 
-		public void actionContinue() {
-
+		public void actionContinue(GameObject error) {
+			GameModel model = new GameModel();
+			if(model.CheckBreakGame()) {
+				Application.LoadLevel(1);
+			} else {
+				error.SetActive(true);
+			}
 		}
 
 		public void savedSetting(GameObject setting) {

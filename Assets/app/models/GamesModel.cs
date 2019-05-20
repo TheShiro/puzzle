@@ -27,5 +27,12 @@ namespace Models {
 			db.Where(new string[,] { {"id", "" + gid, ""} });
 			db.Go();
 		}
+
+		public void SaveBreakGame(int gid) {
+			db.Update("games");
+			db.Set(new string[,] { {"is_break", "1"} });
+			db.Where(new string[,] { {"id", "" + gid, ""} });
+			db.Go();
+		}
 	}
 }

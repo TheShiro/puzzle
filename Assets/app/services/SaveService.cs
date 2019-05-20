@@ -16,9 +16,13 @@ namespace Services {
 			sm.id = obj._component.id;
 			sm.Loading();
 
-			obj._component.rt.gameObject.GetComponent<PuzzleDragAndDrop>().enabled = sm.enabled == 1 ? true : false;
-			obj.SetTransform(new Vector3(float.Parse(sm.posx), float.Parse(sm.posy), 0.0f));
-			obj.SetParentLocal(sm.parent);
+			Debug.Log(sm.obj_id);
+
+			if(sm.obj_id > 0) {
+				obj._component.rt.gameObject.GetComponent<PuzzleDragAndDrop>().enabled = sm.enabled == 1 ? true : false;
+				if(sm.parent > 0) obj.SetParentLocal(new PuzzleObject(sm.parent));
+				obj.SetTransform(new Vector3(float.Parse(sm.posx), float.Parse(sm.posy), 0.0f));
+			}
 		}
 
 		public static void SetSave(PuzzleObject obj) {

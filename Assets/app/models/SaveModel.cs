@@ -14,7 +14,7 @@ namespace Models {
 		public int enabled;
 		public string posx;
 		public string posy;
-		public int parent;
+		public int parent = 0;
 
 		public void Save() {
 			db.Insert("saves");
@@ -25,7 +25,7 @@ namespace Models {
 		public void Loading() {
 			db.Select(new string[] {"obj_id", "enabled", "posx", "posy", "parent"});
 			db.From("saves");
-			db.Where(new string[,] { {"id", this.id + "", ""} });
+			db.Where(new string[,] { {"obj_id", this.id + "", ""} });
 			db.One();
 
 			this.init(db.GetResult());

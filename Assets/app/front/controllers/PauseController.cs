@@ -6,6 +6,8 @@ using Controller;
 using Front.Models;
 using Front.Controllers;
 using Services;
+using Models;
+using Main;
 
 namespace Front.Controllers {
 
@@ -96,9 +98,14 @@ namespace Front.Controllers {
 		}
 
 		private void save_progress() {
+			SaveService.DeleteSave(); // clear table for save new data
+			
 			for(int i = 0; i < PuzzlesService.puzzleArray.Length; i++) {
 				SaveService.SetSave(PuzzlesService.puzzleArray[i]);
 			}
+
+			GamesModel gm = new GamesModel();
+			gm.SaveBreakGame(StartPuzzle.gamesID);
 		}
 	}
 

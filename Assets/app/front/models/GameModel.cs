@@ -27,6 +27,20 @@ namespace Front.Models {
 			db.Values(new string[] {"" + pid, "0", "0", "0", "0", "" + size});
 			db.Go();
 		}
+
+		public bool CheckBreakGame() {
+			db.Select(new string[] {"is_break", "is_end"});
+			db.From("games");
+			db.Order("games.id", "desc");
+			db.One();
+			string[,] res = db.GetResult();
+
+			if(res[0,0] == "1" && res[0,1] == "0") {
+				return true;
+			}
+
+			return false;
+		}
 	}
 
 }
