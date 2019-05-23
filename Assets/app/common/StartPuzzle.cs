@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Services;
 using Router;
+using Front.Models;
+using Front.Services;
 
 namespace Main {
 
@@ -19,6 +21,7 @@ namespace Main {
 		public int is_break;
 
 		void Start () {
+			Settings();
 			string[] gameSettings = GameService.GetSettings();
 			gamesID = Int32.Parse(gameSettings[0]);
 			puzzleID = Int32.Parse(gameSettings[1]);
@@ -55,6 +58,14 @@ namespace Main {
 
 			FrontRouter r = new FrontRouter();
 			r.Route("win");
+		}
+
+		private void Settings() {
+			SettingModel model = new SettingModel();
+
+			model.Load();
+
+			SettingService.SetSetting(model);
 		}
 	}
 

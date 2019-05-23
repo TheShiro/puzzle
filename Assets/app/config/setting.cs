@@ -6,8 +6,8 @@ namespace Config.Setting {
 
 	public class Setting : MonoBehaviour {
 
-		public const float Music = 0.1f;
-		public const float Sound = 0.5f;
+		public const float MUSIC = 0.1f;
+		public const float SOUND = 0.5f;
 	}
 
 }

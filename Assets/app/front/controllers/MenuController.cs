@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Controller;
 using Front.Models;
 using Front.Controllers;
+using Front.Services;
 //using Models;
 
 namespace Front.Controllers {
@@ -39,10 +40,6 @@ namespace Front.Controllers {
 
 			pm.GetByName(name);
 
-			Debug.Log(pm.low);
-			Debug.Log(pm.mid);
-			Debug.Log(pm.high);
-
 			if(sz == 3 && pm.mid == 0) {
 				GameObject warning = GameObject.Find("Canvas").transform.Find("main").Find("PuzzlePanel").Find("Warning").gameObject;
 				warning.SetActive(true);
@@ -71,13 +68,6 @@ namespace Front.Controllers {
 			setting.transform.Find("mute").GetChild(0).GetComponent<Toggle>().isOn = model.mute == 1 ? true : false;
 			setting.transform.Find("fullScreen").GetChild(0).GetComponent<Toggle>().isOn = model.fullscreen == 1 ? true : false;
 
-			/*Debug.Log(model.quality);
-			Debug.Log(model.mouse);
-			Debug.Log(model.sound);
-			Debug.Log(model.music);
-			Debug.Log(model.mute);
-			Debug.Log(model.fullscreen);*/
-
 			setting.SetActive(!setting.active);
 		}
 
@@ -102,16 +92,12 @@ namespace Front.Controllers {
 
 			model.Save();
 
-			/*Debug.Log(model.quality);
-			Debug.Log(model.sound);
-			Debug.Log(model.mute);*/
+			SettingService.SetSetting(model);
+
 			setting.SetActive(false);
 		}
 
 		public void cancelSetting(GameObject setting) {
-			/*SettingModel model = new SettingModel();
-
-			setting.SetActive(false);*/
 			this.actionSetting(setting);
 		}
 	}

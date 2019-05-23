@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Controller;
 using Front.Models;
 using Front.Controllers;
+using Front.Services;
 using Services;
 using Models;
 using Main;
@@ -13,15 +14,10 @@ namespace Front.Controllers {
 
 	public class PauseController : ControllerCore {
 
-		//public GameObject pm;
-
 		public void actionIndex() {
-			//Debug.Log("PauseController:actionIndex");
-			//this.Render("Pause");
-			GameObject canvas = GameObject.Find("Canvas");//.transform.Find("Pause");
+			GameObject canvas = GameObject.Find("Canvas");
 
 			GameObject pm = canvas.transform.Find("Pause").gameObject;
-			//Debug.Log(menu);
 			if(pm != null) {
 				pm.SetActive(!pm.active);
 				pm.GetComponent<RectTransform>().SetAsLastSibling();
@@ -37,7 +33,7 @@ namespace Front.Controllers {
 		public void actionMenu() {
 			this.save_progress();
 			
-			//Application.LoadLevel(0);
+			Application.LoadLevel(0);
 		}
 
 		public void actionWin() {
@@ -55,17 +51,7 @@ namespace Front.Controllers {
 			setting.transform.Find("mute").GetChild(0).GetComponent<Toggle>().isOn = model.mute == 1 ? true : false;
 			setting.transform.Find("fullScreen").GetChild(0).GetComponent<Toggle>().isOn = model.fullscreen == 1 ? true : false;
 
-			/*Debug.Log(model.quality);
-			Debug.Log(model.mouse);
-			Debug.Log(model.sound);
-			Debug.Log(model.music);
-			Debug.Log(model.mute);
-			Debug.Log(model.fullscreen);*/
-
 			setting.SetActive(!setting.active);
-
-			SettingService ss = new SettingService();
-			ss.SetSetting();
 		}
 
 		public void actionContinue() {
@@ -84,21 +70,17 @@ namespace Front.Controllers {
 
 			model.Save();
 
-			/*Debug.Log(model.quality);
-			Debug.Log(model.sound);
-			Debug.Log(model.mute);*/
+			SettingService.SetSetting(model);
+
 			setting.SetActive(false);
 		}
 
 		public void cancelSetting(GameObject setting) {
-			/*SettingModel model = new SettingModel();
-
-			setting.SetActive(false);*/
 			this.actionSetting(setting);
 		}
 
 		private void save_progress() {
-			SaveService.DeleteSave(); // clear table for save new data
+			SaveService.DeleteSave(); // clear table before save new data
 			
 			for(int i = 0; i < PuzzlesService.puzzleArray.Length; i++) {
 				SaveService.SetSave(PuzzlesService.puzzleArray[i]);
