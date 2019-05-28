@@ -8,6 +8,8 @@ namespace Config {
 
 		public const string TEXTURE = "Textures/";
 
+		public const string MATERIALS = "Materials/";
+
 		public const string ALPHA = TEXTURE + "Alpha/";
 		public const string NORMAL = TEXTURE + "NormalMaps/";
 		public const string UI = TEXTURE + "UI/";

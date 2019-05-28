@@ -167,9 +167,12 @@ namespace Services {
 			} else {
 				line = -(line - center) + 0.5f;
 			}
-			//Debug.Log("y" + y + " line" + line + " posY" + (scale * line));
 
-			return new Vector3(scale * pos - Screen.width * 0.2f, scale * line, 0);
+			float dop_x = pos * 10.3f;
+			float dop_y = line * 10.3f;
+			//Debug.Log("id " + id + " / dop_x " + dop_x + " / dop_y" + dop_y);
+
+			return new Vector3(scale * pos - Screen.width * 0.2f + dop_x, scale * line + dop_y, 0);
 		}
 
 		public static bool CheckBackPlace(int id) {
