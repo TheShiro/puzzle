@@ -70,6 +70,7 @@ namespace Modules {
 
 		private void SetScale(float koeff) {
 			_component.rt.sizeDelta *= koeff;
+			_component.rt.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 		}
 
 		//start redefinition

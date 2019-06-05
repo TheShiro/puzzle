@@ -10,10 +10,11 @@ namespace Main {
 		public AudioSource audio;
 		public AudioClip[] clip;
 		public int i = 0;
+		public int collection = 0;
 
 		void Start() {
 			AudioModel model = new AudioModel();
-			clip = model.GetList(100);
+			clip = model.GetList(collection);
 		}
 		
 		void Update () {

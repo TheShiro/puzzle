@@ -172,7 +172,7 @@ namespace Services {
 			float dop_y = line * 10.3f;
 			//Debug.Log("id " + id + " / dop_x " + dop_x + " / dop_y" + dop_y);
 
-			return new Vector3(scale * pos - Screen.width * 0.2f + dop_x, scale * line + dop_y, 0);
+			return new Vector3(scale * pos - Screen.width * 0.2f/* + dop_x*/, scale * line/* + dop_y*/, 0);
 		}
 
 		public static bool CheckBackPlace(int id) {

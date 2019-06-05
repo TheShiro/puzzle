@@ -22,6 +22,10 @@ namespace Main {
 		public int size;
 		public int is_break;
 
+		void Awake() {
+			GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution = new Vector2(Screen.width, Screen.height);
+		}
+
 		void Start () {
 			Settings();
 			string[] gameSettings = GameService.GetSettings();
