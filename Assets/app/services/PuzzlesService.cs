@@ -47,6 +47,14 @@ namespace Services {
 			}
 		}
 
+		public static void Reset() {
+			for(int i = 0; i < puzzleArray.Length; i++) {
+				if(puzzleArray[i]._component.rt.gameObject.GetComponent<PuzzleDragAndDrop>().enabled == true && puzzleArray[i].GetParent() == 0) {
+					puzzleArray[i].SetTransform(new Vector3(GeneratePX(), GeneratePZ(), 0));
+				}
+			}
+		}
+
 		private static string GetMatrixPosition(int id, int x, int y) {
 			PuzzleObject obj;
 
@@ -157,8 +165,6 @@ namespace Services {
 
 			float scale = 200.0f * Scale(x) * 0.61f;
 
-			//Debug.Log("back" + id + " pos=" + pos + " line=" + line + " scale=" + scale + "screen" + Screen.width);
-			//Debug.Log("9" + (9 / 2)); // 9 4
 			int center = y / 2;
 
 			// relative to the center
@@ -168,11 +174,7 @@ namespace Services {
 				line = -(line - center) + 0.5f;
 			}
 
-			float dop_x = pos * 10.3f;
-			float dop_y = line * 10.3f;
-			//Debug.Log("id " + id + " / dop_x " + dop_x + " / dop_y" + dop_y);
-
-			return new Vector3(scale * pos - Screen.width * 0.2f/* + dop_x*/, scale * line/* + dop_y*/, 0);
+			return new Vector3(scale * pos - Screen.width * 0.2f, scale * line, 0);
 		}
 
 		public static bool CheckBackPlace(int id) {

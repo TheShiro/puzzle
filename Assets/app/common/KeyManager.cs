@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Router;
+using Services;
 
 public class KeyManager : MonoBehaviour {
 
@@ -19,6 +20,12 @@ public class KeyManager : MonoBehaviour {
 				Debug.Log("press escape");
 
 				r.Route("pause", "index");
+			}
+
+			if(Input.GetKeyDown(KeyCode.Space)) {
+				Debug.Log("press space");
+
+				PuzzlesService.Reset();
 			}
 		}
 	}
