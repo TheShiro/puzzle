@@ -19,8 +19,10 @@ namespace Main {
 		
 		void Update () {
 			if(!audio.isPlaying) {
-				audio.clip = clip[i];
-				audio.Play();
+				if(clip[i] != null) {
+					audio.clip = clip[i];
+					audio.Play();
+				}
 				i++;
 				if(i > clip.Length) {
 					i = 0;

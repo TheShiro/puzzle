@@ -165,7 +165,7 @@ namespace DB {
 			Query();
 
 			Debug.Log(_reader);
-			_result = new string[6,1];
+			_result = new string[16,1];
 			int i = 0;
 			while(_reader.Read()) {
 				//Debug.Log(_reader[0]);
