@@ -11,19 +11,8 @@ namespace Modules {
 
 	public class PuzzleObject : ObjectCore {
 
-		//private int id;
-
-		/*
-		* 0 - none; 1 - giver; 2 - receiver
-		*/
-		/*private int topSide;
-		private int bottomSide;
-		private int leftSide;
-		private int rightSide;*/
-
 		private Image _mat;
 		public PuzzleComponent _component;
-		//private RectTransform _rt;
 
 		//constructor for create
 		public PuzzleObject(string nameObject, Vector3 position, int id, float koeff_scale) {
