@@ -9378,6 +9378,16 @@ Prefab:
       propertyPath: m_Color.b
       value: 0.1397059
       objectReference: {fileID: 0}
+    - target: {fileID: 114101081542874742, guid: d0deb43f9755e0946b20f20db28252d6,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1409190099}
+    - target: {fileID: 114101081542874742, guid: d0deb43f9755e0946b20f20db28252d6,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: actionQuit
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d0deb43f9755e0946b20f20db28252d6, type: 2}
   m_IsPrefabParent: 0
