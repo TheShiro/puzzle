@@ -17,6 +17,9 @@ namespace Config {
 		public const string UI = TEXTURE + "UI/";
 
 		public const string PREFAB = "Prefabs/";
+
+		public const int _GAME_MENU_ = 1;
+		public const int _GAME_PLAY_ = 2;
 	}
 
 }

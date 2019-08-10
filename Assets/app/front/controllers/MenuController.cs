@@ -6,6 +6,7 @@ using Controller;
 using Front.Models;
 using Front.Controllers;
 using Front.Services;
+using Config;
 //using Models;
 
 namespace Front.Controllers {
@@ -45,7 +46,7 @@ namespace Front.Controllers {
 				warning.SetActive(true);
 			} else {
 				model.Set(pm.id, sz);
-				Application.LoadLevel(1);
+				Application.LoadLevel(C._GAME_PLAY_);
 			}
 		}
 
@@ -74,7 +75,7 @@ namespace Front.Controllers {
 		public void actionContinue(GameObject error) {
 			GameModel model = new GameModel();
 			if(model.CheckBreakGame()) {
-				Application.LoadLevel(1);
+				Application.LoadLevel(C._GAME_PLAY_);
 			} else {
 				error.SetActive(true);
 			}

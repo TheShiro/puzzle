@@ -9,6 +9,7 @@ using Front.Services;
 using Services;
 using Models;
 using Main;
+using Config;
 
 namespace Front.Controllers {
 
@@ -33,11 +34,11 @@ namespace Front.Controllers {
 		public void actionMenu() {
 			this.save_progress();
 			
-			Application.LoadLevel(0);
+			Application.LoadLevel(C._GAME_MENU_);
 		}
 
 		public void actionWin() {
-			Application.LoadLevel(0);
+			Application.LoadLevel(C._GAME_MENU_);
 		}
 
 		public void actionSetting(GameObject setting) {
