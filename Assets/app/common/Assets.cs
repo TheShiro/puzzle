@@ -27,13 +27,6 @@ public class Assets : MonoBehaviour {
 	}
 
 	private void migrations() {
-		string nspace = "Migtations";
-
-		var q = from t in Assembly.GetExecutingAssembly().GetTypes()
-		        where t.Namespace == nspace
-		        select t;
-		q.ToList().ForEach(t => Debug.Log(t));
-
-		Debug.Log(q.ToList());
+		
 	}
 }
